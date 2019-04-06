@@ -19,11 +19,12 @@ object JavaList {
     override def get(index: Int): A = delegate.get(index)
     override def indexOf(o: Any): NonoInt = NonoInt.unsafeFromInt(delegate.indexOf(o))
     override def lastIndexOf(o: Any): NonoInt = NonoInt.unsafeFromInt(delegate.lastIndexOf(o))
-    override def listIterator: JavaListIterator.Refined[A] = JavaListIterator.UnsafeUnmodifiable(delegate.listIterator)
+    override def listIterator: JavaListIterator.Refined[A] =
+      new JavaListIterator.UnsafeUnmodifiable(delegate.listIterator)
     override def listIterator(index: Int): JavaListIterator.Refined[A] =
-      JavaListIterator.UnsafeUnmodifiable(delegate.listIterator(index))
+      new JavaListIterator.UnsafeUnmodifiable(delegate.listIterator(index))
     override def subList(fromIndex: Int, toIndex: Int): JavaList.Refined[A] =
-      UnsafeUnmodifiable(delegate.subList(fromIndex, toIndex))
+      new UnsafeUnmodifiable(delegate.subList(fromIndex, toIndex))
 
     override def spliterator: Spliterator[A] = delegate.spliterator
 
@@ -34,7 +35,7 @@ object JavaList {
     override def remove(index: Int): A = throw new UnsupportedOperationException("remove")
   }
 
-  case class UnsafeUnmodifiable[A](override val delegate: JavaList[A]) extends UnsafeProxy[A]
+  class UnsafeUnmodifiable[A](override protected val delegate: JavaList[A]) extends UnsafeProxy[A]
 
 
   import scala.collection.JavaConverters._
