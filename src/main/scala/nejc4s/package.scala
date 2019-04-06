@@ -1,7 +1,8 @@
 import java.util
 
 package object nejc4s {
-  type JavaCollection[A] = JavaCollection.Base[A]
+  type JavaCollection[A] = util.Collection[A]
+  type JavaIterable[A] = java.lang.Iterable[A]
   type JavaIterator[A] = util.Iterator[A]
   type JavaList[A] = util.List[A]
   type JavaListIterator[A] = util.ListIterator[A]
