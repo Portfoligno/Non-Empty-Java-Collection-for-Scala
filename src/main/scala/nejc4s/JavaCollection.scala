@@ -3,7 +3,7 @@ package nejc4s
 import java.util
 
 object JavaCollection {
-  trait Base[A] extends JavaCollection[A] with JavaIterable.Base[A] {
+  trait Refined[A] extends JavaCollection[A] with JavaIterable.Refined[A] {
     override def size: NonNegativeInt
     //override def isEmpty: Boolean
     //override def contains(o: Any): Boolean
@@ -16,7 +16,7 @@ object JavaCollection {
     //override def parallelStream: JavaStream[A] = super.parallelStream
   }
 
-  trait UnsafeProxy[A] extends util.AbstractCollection[A] with Base[A] with JavaIterable.UnsafeProxy[A] {
+  trait UnsafeProxy[A] extends util.AbstractCollection[A] with Refined[A] with JavaIterable.UnsafeProxy[A] {
     protected
     def delegate: JavaCollection[A]
 
