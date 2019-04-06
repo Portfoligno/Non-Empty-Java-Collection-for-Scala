@@ -6,6 +6,7 @@ package object nejc4s {
   type JavaIterator[A] = util.Iterator[A]
   type JavaList[A] = util.List[A]
   type JavaListIterator[A] = util.ListIterator[A]
+  type JavaObject = Object
   type JavaSpliterator[A] = util.Spliterator[A]
   type JavaStream[A] = util.stream.Stream[A]
 

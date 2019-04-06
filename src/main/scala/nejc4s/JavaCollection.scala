@@ -18,7 +18,7 @@ object JavaCollection {
 
   trait UnsafeProxy[A] extends util.AbstractCollection[A] with Refined[A] with JavaIterable.UnsafeProxy[A] {
     protected
-    def delegate: JavaCollection[A]
+    override def delegate: JavaCollection[A]
 
     override def size: NonNegativeInt = NonNegativeInt.unsafeFromInt(delegate.size)
     override def isEmpty: Boolean = delegate.isEmpty
@@ -27,7 +27,6 @@ object JavaCollection {
     //override def toArray[T](a: Array[T]): Array[T]
     override def containsAll(c: JavaCollection[_]): Boolean = delegate.containsAll(c)
 
-    //override def spliterator: JavaSpliterator[A] = delegate.spliterator
     override def stream: JavaStream[A] = delegate.stream
     override def parallelStream: JavaStream[A] = delegate.parallelStream
   }

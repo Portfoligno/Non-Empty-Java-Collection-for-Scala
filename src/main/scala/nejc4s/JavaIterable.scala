@@ -10,9 +10,9 @@ object JavaIterable {
     //override def spliterator: JavaSpliterator[A] = super.spliterator
   }
 
-  trait UnsafeProxy[A] extends Refined[A] {
+  trait UnsafeProxy[A] extends JavaObject.UnsafeProxy with Refined[A] {
     protected
-    def delegate: JavaIterable[A]
+    override def delegate: JavaIterable[A]
 
     override def iterator: JavaIterator[A] = delegate.iterator
 
