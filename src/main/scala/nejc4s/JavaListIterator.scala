@@ -5,7 +5,7 @@ object JavaListIterator {
     //override def hasPrevious: Boolean
     //override def previous(): A
     override def nextIndex: NaturalInt
-    override def previousIndex: NonoInt
+    override def previousIndex: NaturalIntX
   }
 
   trait UnsafeProxy[A] extends Refined[A] with JavaIterator.Proxy[A] {
@@ -15,7 +15,7 @@ object JavaListIterator {
     override def hasPrevious: Boolean = delegate.hasPrevious
     override def previous(): A = delegate.previous()
     override def nextIndex: NaturalInt = NaturalInt.unsafeFromInt(delegate.nextIndex)
-    override def previousIndex: NonoInt = NonoInt.unsafeFromInt(delegate.previousIndex)
+    override def previousIndex: NaturalIntX = NaturalIntX.unsafeFromInt(delegate.previousIndex)
 
     override def set(e: A): Unit = throw new UnsupportedOperationException("set")
     override def add(e: A): Unit = throw new UnsupportedOperationException("add")

@@ -67,7 +67,7 @@ package object nejc4s {
 
 
 
-  type PositiveInt <: NaturalInt with PonoInt
+  type PositiveInt <: NaturalInt with PositiveIntX
 
   object PositiveInt {
     def fromInt(i: Int): Option[PositiveInt] =
@@ -86,7 +86,7 @@ package object nejc4s {
   }
 
 
-  type NaturalInt <: NonoInt with NaturalInt.Tag
+  type NaturalInt <: NaturalIntX with NaturalInt.Tag
 
   object NaturalInt {
     private[nejc4s] trait Tag extends Any
@@ -107,42 +107,42 @@ package object nejc4s {
   }
 
 
-  type PonoInt <: NonoInt with PonoInt.Tag
+  type PositiveIntX <: NaturalIntX with PositiveIntX.Tag
 
-  object PonoInt {
+  object PositiveIntX {
     private[nejc4s] trait Tag extends Any
 
-    def fromInt(i: Int): Option[PonoInt] =
+    def fromInt(i: Int): Option[PositiveIntX] =
       if (i > 0 || i == -1) {
-        Some(i.asInstanceOf[PonoInt])
+        Some(i.asInstanceOf[PositiveIntX])
       } else {
         None
       }
 
-    def unsafeFromInt(i: Int): PonoInt =
+    def unsafeFromInt(i: Int): PositiveIntX =
       if (i > 0 || i == -1) {
-        i.asInstanceOf[PonoInt]
+        i.asInstanceOf[PositiveIntX]
       } else {
         throw new IllegalArgumentException(String.valueOf(i))
       }
   }
 
 
-  type NonoInt <: Int with NonoInt.Tag
+  type NaturalIntX <: Int with NaturalIntX.Tag
 
-  object NonoInt {
+  object NaturalIntX {
     private[nejc4s] trait Tag extends Any
 
-    def fromInt(i: Int): Option[NonoInt] =
+    def fromInt(i: Int): Option[NaturalIntX] =
       if (i >= -1) {
-        Some(i.asInstanceOf[NonoInt])
+        Some(i.asInstanceOf[NaturalIntX])
       } else {
         None
       }
 
-    def unsafeFromInt(i: Int): NonoInt =
+    def unsafeFromInt(i: Int): NaturalIntX =
       if (i >= -1) {
-        i.asInstanceOf[NonoInt]
+        i.asInstanceOf[NaturalIntX]
       } else {
         throw new IllegalArgumentException(String.valueOf(i))
       }

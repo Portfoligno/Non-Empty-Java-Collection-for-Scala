@@ -3,8 +3,8 @@ package nejc4s
 object JavaList {
   trait Refined[A] extends JavaList[A] with JavaCollection.Refined[A] {
     //override def get(index: Int): A
-    override def indexOf(o: Any): NonoInt
-    override def lastIndexOf(o: Any): NonoInt
+    override def indexOf(o: Any): NaturalIntX
+    override def lastIndexOf(o: Any): NaturalIntX
     override def listIterator: JavaListIterator.Refined[A]
     override def listIterator(index: Int): JavaListIterator.Refined[A]
     override def subList(fromIndex: Int, toIndex: Int): JavaList.Refined[A]
@@ -17,8 +17,8 @@ object JavaList {
     override def delegate: JavaList[A]
 
     override def get(index: Int): A = delegate.get(index)
-    override def indexOf(o: Any): NonoInt = NonoInt.unsafeFromInt(delegate.indexOf(o))
-    override def lastIndexOf(o: Any): NonoInt = NonoInt.unsafeFromInt(delegate.lastIndexOf(o))
+    override def indexOf(o: Any): NaturalIntX = NaturalIntX.unsafeFromInt(delegate.indexOf(o))
+    override def lastIndexOf(o: Any): NaturalIntX = NaturalIntX.unsafeFromInt(delegate.lastIndexOf(o))
     override def listIterator: JavaListIterator.Refined[A] =
       new JavaListIterator.UnsafeUnmodifiable(delegate.listIterator)
     override def listIterator(index: Int): JavaListIterator.Refined[A] =
