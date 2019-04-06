@@ -10,11 +10,11 @@ object JavaStream {
     override def map[B](mapper: Function[_ >: A, _ <: B]): JavaStream.Refined[B]
     override def mapToInt(mapper: ToIntFunction[_ >: A]): IntStream
     override def mapToLong(mapper: ToLongFunction[_ >: A]): LongStream
-    override def mapToDouble(mapper: ToDoubleFunction[_ >: A]): DoubleStream
+    override def mapToDouble(mapper: ToDoubleFunction[_ >: A]): JavaDoubleStream.Refined
     override def flatMap[B](mapper: Function[_ >: A, _ <: Stream[_ <: B]]): JavaStream.Refined[B]
     override def flatMapToInt(mapper: Function[_ >: A, _ <: IntStream]): IntStream
     override def flatMapToLong(mapper: Function[_ >: A, _ <: LongStream]): LongStream
-    override def flatMapToDouble(mapper: Function[_ >: A, _ <: DoubleStream]): DoubleStream
+    override def flatMapToDouble(mapper: Function[_ >: A, _ <: DoubleStream]): JavaDoubleStream.Refined
     override def distinct: JavaStream.Refined[A]
     override def sorted: JavaStream.Refined[A]
     override def sorted(comparator: Comparator[_ >: A]): JavaStream.Refined[A]
