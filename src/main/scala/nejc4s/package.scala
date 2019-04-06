@@ -2,8 +2,10 @@ import java.util
 import java.util.Optional
 
 package object nejc4s {
+  type AutoCloseable = java.lang.AutoCloseable
   type Optional[A] = util.Optional[A]
   type Spliterator[A] = util.Spliterator[A]
+  type JavaBaseStream[A, S <: JavaBaseStream[A, S]] = util.stream.BaseStream[A, S]
   type JavaCollection[A] = util.Collection[A]
   type JavaIterable[A] = java.lang.Iterable[A]
   type JavaIterator[A] = util.Iterator[A]
