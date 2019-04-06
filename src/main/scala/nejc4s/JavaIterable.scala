@@ -15,7 +15,7 @@ object JavaIterable {
     protected
     override def delegate: JavaIterable[A]
 
-    override def iterator: JavaIterator[A] = JavaIterator.Unmodifiable(delegate.iterator)
+    override def iterator: JavaIterator[A] = new JavaIterator.Unmodifiable(delegate.iterator)
 
     override def forEach(action: Consumer[_ >: A]): Unit = delegate.forEach(action)
     override def spliterator: Spliterator[A] = delegate.spliterator
