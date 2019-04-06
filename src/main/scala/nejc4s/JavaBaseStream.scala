@@ -2,7 +2,7 @@ package nejc4s
 
 object JavaBaseStream {
   private[nejc4s]
-  type Refined[A, S <: Refined[A, S]] = JavaBaseStream[A, S] /*{
+  type Refined[A, S <: JavaBaseStream[A, S]] = JavaBaseStream[A, S] /*with AutoCloseable.Refined {
     override def iterator: JavaIterator[A]
     override def spliterator: Spliterator[A]
     override def isParallel: Boolean

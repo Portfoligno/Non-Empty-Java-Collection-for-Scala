@@ -7,10 +7,13 @@ package object nejc4s {
   type Spliterator[A] = util.Spliterator[A]
   type JavaBaseStream[A, S <: JavaBaseStream[A, S]] = util.stream.BaseStream[A, S]
   type JavaCollection[A] = util.Collection[A]
+  type JavaDoubleStream = util.stream.DoubleStream
+  type JavaIntStream = util.stream.IntStream
   type JavaIterable[A] = java.lang.Iterable[A]
   type JavaIterator[A] = util.Iterator[A]
   type JavaList[A] = util.List[A]
   type JavaListIterator[A] = util.ListIterator[A]
+  type JavaLongStream = util.stream.LongStream
   type JavaStream[A] = util.stream.Stream[A]
 
 
