@@ -35,4 +35,13 @@ object JavaList {
   }
 
   case class UnsafeUnmodifiable[A](override val delegate: JavaList[A]) extends UnsafeProxy[A]
+
+
+  import scala.collection.JavaConverters._
+
+  def apply[A](xs: A*): JavaList[A] =
+    xs.asJava
+
+  def unapplySeq[A](xs: JavaList[A]): Some[Seq[A]] =
+    Some(xs.asScala)
 }
