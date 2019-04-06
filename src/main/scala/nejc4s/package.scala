@@ -6,10 +6,11 @@ package object nejc4s {
   type JavaIterator[A] = util.Iterator[A]
   type JavaList[A] = util.List[A]
   type JavaListIterator[A] = util.ListIterator[A]
-  type JavaObject = Object
   type JavaSpliterator[A] = util.Spliterator[A]
   type JavaStream[A] = util.stream.Stream[A]
 
+
+  type PositiveInt <: NaturalInt with PonoInt
 
   object PositiveInt {
     def fromInt(i: Int): Option[PositiveInt] =
@@ -27,57 +28,76 @@ package object nejc4s {
       }
   }
 
-  type PositiveInt <: NonNegativeInt with PonoInt
 
+  type NaturalInt <: NonoInt with NaturalInt.Tag
 
-  object NonNegativeInt {
+  object NaturalInt {
     private[nejc4s] trait Tag extends Any
 
-    def fromInt(i: Int): Option[NonNegativeInt] =
+    def fromInt(i: Int): Option[NaturalInt] =
       if (i >= 0) {
-        Some(i.asInstanceOf[NonNegativeInt])
+        Some(i.asInstanceOf[NaturalInt])
       } else {
         None
       }
 
-    def unsafeFromInt(i: Int): NonNegativeInt =
+    def unsafeFromInt(i: Int): NaturalInt =
       if (i >= 0) {
-        i.asInstanceOf[NonNegativeInt]
+        i.asInstanceOf[NaturalInt]
       } else {
         throw new IllegalArgumentException(String.valueOf(i))
       }
   }
 
-  type NonNegativeInt <: Int with NonNegativeInt.Tag
 
+  type PonoInt <: NonoInt with PonoInt.Tag
 
   object PonoInt {
     private[nejc4s] trait Tag extends Any
 
-    def fromInt(i: Int): Option[PositiveInt] =
+    def fromInt(i: Int): Option[PonoInt] =
       if (i > 0 || i == -1) {
-        Some(i.asInstanceOf[PositiveInt])
+        Some(i.asInstanceOf[PonoInt])
       } else {
         None
       }
 
-    def unsafeFromInt(i: Int): PositiveInt =
+    def unsafeFromInt(i: Int): PonoInt =
       if (i > 0 || i == -1) {
-        i.asInstanceOf[PositiveInt]
+        i.asInstanceOf[PonoInt]
       } else {
         throw new IllegalArgumentException(String.valueOf(i))
       }
   }
 
-  type PonoInt <: Int with PonoInt.Tag
+
+  type NonoInt <: Int with NonoInt.Tag
+
+  object NonoInt {
+    private[nejc4s] trait Tag extends Any
+
+    def fromInt(i: Int): Option[NonoInt] =
+      if (i >= -1) {
+        Some(i.asInstanceOf[NonoInt])
+      } else {
+        None
+      }
+
+    def unsafeFromInt(i: Int): NonoInt =
+      if (i >= -1) {
+        i.asInstanceOf[NonoInt]
+      } else {
+        throw new IllegalArgumentException(String.valueOf(i))
+      }
+  }
 
 
-  private[nejc4s] trait TrueTag extends Any
-  type True <: Boolean with TrueTag
-  val True: True = true.asInstanceOf[True]
-
-
-  private[nejc4s] trait FalseTag extends Any
   type False <: Boolean with FalseTag
+  private[nejc4s] trait FalseTag extends Any
   val False: False = false.asInstanceOf[False]
+
+
+  type True <: Boolean with TrueTag
+  private[nejc4s] trait TrueTag extends Any
+  val True: True = true.asInstanceOf[True]
 }
