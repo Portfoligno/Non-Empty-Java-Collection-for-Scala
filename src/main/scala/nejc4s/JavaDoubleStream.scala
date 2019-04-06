@@ -1,7 +1,7 @@
 package nejc4s
 
 import java.util.function._
-import java.util.stream.{DoubleStream, LongStream}
+import java.util.stream.DoubleStream
 import java.util.{DoubleSummaryStatistics, PrimitiveIterator}
 
 object JavaDoubleStream {
@@ -10,7 +10,7 @@ object JavaDoubleStream {
     override def map(mapper: DoubleUnaryOperator): JavaDoubleStream.Refined
     override def mapToObj[B](mapper: DoubleFunction[_ <: B]): JavaStream.Refined[B]
     override def mapToInt(mapper: DoubleToIntFunction): JavaIntStream.Refined
-    override def mapToLong(mapper: DoubleToLongFunction): LongStream
+    override def mapToLong(mapper: DoubleToLongFunction): JavaLongStream.Refined
     override def flatMap(mapper: DoubleFunction[_ <: DoubleStream]): JavaDoubleStream.Refined
     override def distinct: JavaDoubleStream.Refined
     override def sorted: JavaDoubleStream.Refined

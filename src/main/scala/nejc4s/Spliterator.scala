@@ -5,4 +5,5 @@ import java.util
 object Spliterator {
   type OfDouble = util.Spliterator.OfDouble
   type OfInt = util.Spliterator.OfInt
+  type OfLong = util.Spliterator.OfLong
 }

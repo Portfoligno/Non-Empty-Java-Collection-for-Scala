@@ -1,7 +1,7 @@
 package nejc4s
 
-import java.util.function.{IntConsumer, IntFunction, IntPredicate, IntToDoubleFunction, IntToLongFunction, IntUnaryOperator}
-import java.util.stream.{IntStream, LongStream}
+import java.util.function._
+import java.util.stream.IntStream
 import java.util.{IntSummaryStatistics, PrimitiveIterator}
 
 object JavaIntStream {
@@ -9,7 +9,7 @@ object JavaIntStream {
     override def filter(predicate: IntPredicate): JavaIntStream.Refined
     override def map(mapper: IntUnaryOperator): JavaIntStream.Refined
     override def mapToObj[B](mapper: IntFunction[_ <: B]): JavaStream.Refined[B]
-    override def mapToLong(mapper: IntToLongFunction): LongStream
+    override def mapToLong(mapper: IntToLongFunction): JavaLongStream.Refined
     override def mapToDouble(mapper: IntToDoubleFunction): JavaDoubleStream.Refined
     override def flatMap(mapper: IntFunction[_ <: IntStream]): JavaIntStream.Refined
     override def distinct: JavaIntStream.Refined
@@ -34,7 +34,7 @@ object JavaIntStream {
     //override def noneMatch(predicate: IntPredicate): Boolean
     //override def findFirst: OptionalInt
     //override def findAny: OptionalInt
-    override def asLongStream: LongStream
+    override def asLongStream: JavaLongStream.Refined
     override def asDoubleStream: JavaDoubleStream.Refined
     override def boxed: JavaStream.Refined[Integer]
     override def sequential: JavaIntStream.Refined
