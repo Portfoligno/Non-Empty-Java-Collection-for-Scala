@@ -1,13 +1,70 @@
 import java.util
+import java.util.Optional
 
 package object nejc4s {
+  type Optional[A] = util.Optional[A]
+  type Spliterator[A] = util.Spliterator[A]
   type JavaCollection[A] = util.Collection[A]
   type JavaIterable[A] = java.lang.Iterable[A]
   type JavaIterator[A] = util.Iterator[A]
   type JavaList[A] = util.List[A]
   type JavaListIterator[A] = util.ListIterator[A]
-  type JavaSpliterator[A] = util.Spliterator[A]
   type JavaStream[A] = util.stream.Stream[A]
+
+
+
+  type False <: Boolean with FalseTag
+  private[nejc4s] trait FalseTag extends Any
+  val False: False = false.asInstanceOf[False]
+
+
+  type True <: Boolean with TrueTag
+  private[nejc4s] trait TrueTag extends Any
+  val True: True = true.asInstanceOf[True]
+
+
+
+  type Absent[A] <: Optional[A] with Absent.Tag
+
+  object Absent {
+    private[nejc4s] trait Tag extends Any
+
+    def unsafeFromOptional[A](optional: Optional[A]): Absent[A] =
+      if (!optional.isPresent) {
+        optional.asInstanceOf[Absent[A]]
+      } else {
+        throw new IllegalArgumentException(String.valueOf(optional))
+      }
+
+
+    def apply[A]: Absent[A] =
+      Optional.empty().asInstanceOf[Absent[A]]
+
+    def unapply(a: Optional[_]): Boolean =
+      !a.isPresent
+  }
+
+
+  type Present[A] <: Optional[A] with Present.Tag
+
+  object Present {
+    private[nejc4s] trait Tag extends Any
+
+    def unsafeFromOptional[A](optional: Optional[A]): Present[A] =
+      if (optional.isPresent) {
+        optional.asInstanceOf[Present[A]]
+      } else {
+        throw new IllegalArgumentException(String.valueOf(optional))
+      }
+
+
+    def apply[A](a: A): Present[A] =
+      Optional.of(a).asInstanceOf[Present[A]]
+
+    def unapply[A](a: Optional[A]): Option[A] =
+      if (a.isPresent) Some(a.get) else None
+  }
+
 
 
   type PositiveInt <: NaturalInt with PonoInt
@@ -90,14 +147,4 @@ package object nejc4s {
         throw new IllegalArgumentException(String.valueOf(i))
       }
   }
-
-
-  type False <: Boolean with FalseTag
-  private[nejc4s] trait FalseTag extends Any
-  val False: False = false.asInstanceOf[False]
-
-
-  type True <: Boolean with TrueTag
-  private[nejc4s] trait TrueTag extends Any
-  val True: True = true.asInstanceOf[True]
 }

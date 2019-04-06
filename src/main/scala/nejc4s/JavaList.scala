@@ -25,7 +25,7 @@ object JavaList {
     override def subList(fromIndex: Int, toIndex: Int): JavaList.Refined[A] =
       UnsafeUnmodifiable(delegate.subList(fromIndex, toIndex))
 
-    override def spliterator: JavaSpliterator[A] = delegate.spliterator
+    override def spliterator: Spliterator[A] = delegate.spliterator
 
     override def addAll(index: Int, c: JavaCollection[_ <: A]): Boolean =
       throw new UnsupportedOperationException("addAll")
