@@ -40,8 +40,8 @@ object JavaList {
 
   import scala.collection.JavaConverters._
 
-  def apply[A](xs: A*): JavaList[A] =
-    xs.asJava
+  def apply[A](xs: A*): JavaList.Refined[A] =
+    new UnsafeUnmodifiable[A](xs.asJava)
 
   def unapplySeq[A](xs: JavaList[A]): Some[Seq[A]] =
     Some(xs.asScala)
