@@ -26,7 +26,7 @@ object JavaIntStream {
     //override def sum(): Int
     //override def min(): OptionalInt
     //override def max(): OptionalInt
-    override def count(): Long
+    override def count(): NaturalLong
     //override def average(): OptionalDouble
     override def summaryStatistics(): IntSummaryStatistics
     //override def anyMatch(predicate: IntPredicate): Boolean
@@ -76,7 +76,7 @@ object JavaIntStream {
     override def sum(): Int = delegate.sum()
     override def min(): OptionalInt = delegate.min()
     override def max(): OptionalInt = delegate.max()
-    override def count(): Long = delegate.count()
+    override def count(): NaturalLong = NaturalLong.unsafeFromLong(delegate.count())
     override def average(): OptionalDouble = delegate.average()
     override def summaryStatistics(): IntSummaryStatistics = delegate.summaryStatistics()
     override def anyMatch(predicate: IntPredicate): Boolean = delegate.anyMatch(predicate)

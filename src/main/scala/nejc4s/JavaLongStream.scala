@@ -27,7 +27,7 @@ object JavaLongStream {
     //override def sum(): Long
     //override def min(): OptionalLong
     //override def max(): OptionalLong
-    override def count(): Long
+    override def count(): NaturalLong
     //override def average(): OptionalDouble
     override def summaryStatistics(): LongSummaryStatistics
     //override def anyMatch(predicate: LongPredicate): Boolean
@@ -76,7 +76,7 @@ object JavaLongStream {
     override def sum(): Long = delegate.sum()
     override def min(): OptionalLong = delegate.min()
     override def max(): OptionalLong = delegate.max()
-    override def count(): Long = delegate.count()
+    override def count(): NaturalLong = NaturalLong.unsafeFromLong(delegate.count())
     override def average(): OptionalDouble = delegate.average()
     override def summaryStatistics(): LongSummaryStatistics = delegate.summaryStatistics()
     override def anyMatch(predicate: LongPredicate): Boolean = delegate.anyMatch(predicate)

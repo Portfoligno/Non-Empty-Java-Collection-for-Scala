@@ -112,6 +112,27 @@ package object nejc4s {
   }
 
 
+  type NaturalLong <: Long with NaturalLong.Tag
+
+  object NaturalLong {
+    private[nejc4s] trait Tag extends Any
+
+    def fromLong(i: Long): Option[NaturalLong] =
+      if (i >= 0) {
+        Some(i.asInstanceOf[NaturalLong])
+      } else {
+        None
+      }
+
+    def unsafeFromLong(i: Long): NaturalLong =
+      if (i >= 0) {
+        i.asInstanceOf[NaturalLong]
+      } else {
+        throw new IllegalArgumentException(String.valueOf(i))
+      }
+  }
+
+
   type PositiveIntX <: NaturalIntX with PositiveIntX.Tag
 
   object PositiveIntX {

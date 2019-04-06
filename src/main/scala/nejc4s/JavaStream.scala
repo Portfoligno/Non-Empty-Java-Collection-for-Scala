@@ -32,7 +32,7 @@ object JavaStream {
     //override def collect[B, R](collector: Collector[_ >: A, R, B]): B
     //override def min(comparator: Comparator[_ >: A]): Optional[A]
     //override def max(comparator: Comparator[_ >: A]): Optional[A]
-    override def count(): Long
+    override def count(): NaturalLong
     //override def anyMatch(predicate: Predicate[_ >: A]): Boolean
     //override def allMatch(predicate: Predicate[_ >: A]): Boolean
     //override def noneMatch(predicate: Predicate[_ >: A]): Boolean
@@ -85,7 +85,7 @@ object JavaStream {
     override def collect[B, R](collector: Collector[_ >: A, R, B]): B = delegate.collect(collector)
     override def min(comparator: Comparator[_ >: A]): Optional[A] = delegate.min(comparator)
     override def max(comparator: Comparator[_ >: A]): Optional[A] = delegate.max(comparator)
-    override def count(): Long = delegate.count()
+    override def count(): NaturalLong = NaturalLong.unsafeFromLong(delegate.count())
     override def anyMatch(predicate: Predicate[_ >: A]): Boolean = delegate.anyMatch(predicate)
     override def allMatch(predicate: Predicate[_ >: A]): Boolean = delegate.allMatch(predicate)
     override def noneMatch(predicate: Predicate[_ >: A]): Boolean = delegate.noneMatch(predicate)

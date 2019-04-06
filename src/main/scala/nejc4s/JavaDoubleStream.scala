@@ -27,7 +27,7 @@ object JavaDoubleStream {
     //override def sum(): Double
     //override def min(): OptionalDouble
     //override def max(): OptionalDouble
-    override def count(): Long
+    override def count(): NaturalLong
     //override def average(): OptionalDouble
     override def summaryStatistics(): DoubleSummaryStatistics
     //override def anyMatch(predicate: DoublePredicate): Boolean
@@ -75,7 +75,7 @@ object JavaDoubleStream {
     override def sum(): Double = delegate.sum()
     override def min(): OptionalDouble = delegate.min()
     override def max(): OptionalDouble = delegate.max()
-    override def count(): Long = delegate.count()
+    override def count(): NaturalLong = NaturalLong.unsafeFromLong(delegate.count())
     override def average(): OptionalDouble = delegate.average()
     override def summaryStatistics(): DoubleSummaryStatistics = delegate.summaryStatistics()
     override def anyMatch(predicate: DoublePredicate): Boolean = delegate.anyMatch(predicate)
