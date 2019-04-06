@@ -12,8 +12,8 @@ object JavaCollection {
     //override def containsAll(c: JavaCollection[_]): Boolean
 
     //override def spliterator: JavaSpliterator[A] = super.spliterator
-    //override def stream: JavaStream[A] = super.stream
-    //override def parallelStream: JavaStream[A] = super.parallelStream
+    override def stream: JavaStream.Refined[A] = new JavaStream.UnsafeUnmodifiable(super.stream)
+    override def parallelStream: JavaStream.Refined[A] = new JavaStream.UnsafeUnmodifiable(super.parallelStream)
   }
 
   trait UnsafeProxy[A] extends util.AbstractCollection[A] with Refined[A] with JavaIterable.Proxy[A] {
@@ -27,7 +27,8 @@ object JavaCollection {
     //override def toArray[T](a: Array[T]): Array[T]
     override def containsAll(c: JavaCollection[_]): Boolean = delegate.containsAll(c)
 
-    override def stream: JavaStream[A] = delegate.stream
-    override def parallelStream: JavaStream[A] = delegate.parallelStream
+    //override def spliterator: JavaSpliterator[A] = delegate.spliterator
+    override def stream: JavaStream.Refined[A] = new JavaStream.UnsafeUnmodifiable(delegate.stream)
+    override def parallelStream: JavaStream.Refined[A] = new JavaStream.UnsafeUnmodifiable(delegate.parallelStream)
   }
 }
