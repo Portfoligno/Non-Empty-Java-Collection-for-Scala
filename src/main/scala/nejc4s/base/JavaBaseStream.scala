@@ -1,7 +1,6 @@
 package nejc4s.base
 
 object JavaBaseStream {
-  private[base]
   trait Refined[A, S <: JavaBaseStream[A, S]] extends JavaBaseStream[A, S] with AutoCloseable.Refined {
     //override def iterator(): JavaIterator[A]
     override def spliterator(): Spliterator.Refined[A]

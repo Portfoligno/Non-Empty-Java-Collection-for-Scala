@@ -5,7 +5,6 @@ import java.util.function.Consumer
 import nejc4s.base
 
 object JavaIterable {
-  private[base]
   trait Refined[A] extends JavaIterable[A] {
     //override def iterator: JavaIterator[A]
 

@@ -37,7 +37,7 @@ object JavaStream {
     //override def allMatch(predicate: Predicate[_ >: A]): Boolean
     //override def noneMatch(predicate: Predicate[_ >: A]): Boolean
     //override def findFirst(): Optional[A]
-    //override def findAn()y: Optional[A]
+    //override def findAny(): Optional[A]
   }
 
   trait UnsafeProxy[A] extends AbstractJavaStream[A] with JavaBaseStream.UnsafeProxy[A, JavaStream[A]] with Refined[A] {

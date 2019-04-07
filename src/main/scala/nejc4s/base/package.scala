@@ -94,6 +94,25 @@ package object base {
   }
 
 
+  type PositiveLong <: NaturalLong with PositiveLongX
+
+  object PositiveLong {
+    def fromLong(i: Long): Option[PositiveLong] =
+      if (i > 0) {
+        Some(i.asInstanceOf[PositiveLong])
+      } else {
+        None
+      }
+
+    def unsafeFromLong(i: Long): PositiveLong =
+      if (i > 0) {
+        i.asInstanceOf[PositiveLong]
+      } else {
+        throw new IllegalArgumentException(String.valueOf(i))
+      }
+  }
+
+
   type NaturalInt <: NaturalIntX with NaturalInt.Tag
 
   object NaturalInt {
@@ -151,6 +170,27 @@ package object base {
     def unsafeFromInt(i: Int): PositiveIntX =
       if (i > 0 || i == -1) {
         i.asInstanceOf[PositiveIntX]
+      } else {
+        throw new IllegalArgumentException(String.valueOf(i))
+      }
+  }
+
+
+  type PositiveLongX <: NaturalLongX with PositiveLongX.Tag
+
+  object PositiveLongX {
+    private[base] trait Tag extends Any
+
+    def fromLong(i: Long): Option[PositiveLongX] =
+      if (i > 0 || i == -1) {
+        Some(i.asInstanceOf[PositiveLongX])
+      } else {
+        None
+      }
+
+    def unsafeFromLong(i: Long): PositiveLongX =
+      if (i > 0 || i == -1) {
+        i.asInstanceOf[PositiveLongX]
       } else {
         throw new IllegalArgumentException(String.valueOf(i))
       }
