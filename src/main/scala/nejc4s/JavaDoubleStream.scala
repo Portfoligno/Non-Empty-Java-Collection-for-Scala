@@ -3,7 +3,7 @@ package nejc4s
 import java.lang
 import java.util.function._
 import java.util.stream.DoubleStream
-import java.util.{DoubleSummaryStatistics, OptionalDouble, PrimitiveIterator}
+import java.util.{DoubleSummaryStatistics, OptionalDouble}
 
 object JavaDoubleStream {
   trait Refined extends JavaDoubleStream with JavaBaseStream.Refined[lang.Double, JavaDoubleStream] {
@@ -38,7 +38,7 @@ object JavaDoubleStream {
     override def boxed: JavaStream.Refined[lang.Double]
     override def sequential(): JavaDoubleStream.Refined
     override def parallel(): JavaDoubleStream.Refined
-    //override def iterator(): PrimitiveIterator.OfDouble
+    //override def iterator(): JavaPrimitiveIterator.OfDouble
     override def spliterator(): Spliterator.OfDouble.Refined
   }
 
@@ -86,7 +86,7 @@ object JavaDoubleStream {
     override def boxed: JavaStream.Refined[lang.Double] = new JavaStream.UnsafeUnmodifiable(delegate.boxed())
     override def sequential(): JavaDoubleStream.Refined = new JavaDoubleStream.UnsafeUnmodifiable(delegate.sequential())
     override def parallel(): JavaDoubleStream.Refined = new JavaDoubleStream.UnsafeUnmodifiable(delegate.parallel())
-    override def iterator(): PrimitiveIterator.OfDouble = delegate.iterator()
+    override def iterator(): JavaPrimitiveIterator.OfDouble = delegate.iterator()
     override def spliterator(): Spliterator.OfDouble.Refined =
       new Spliterator.OfDouble.UnsafeUnmodifiable(delegate.spliterator())
   }

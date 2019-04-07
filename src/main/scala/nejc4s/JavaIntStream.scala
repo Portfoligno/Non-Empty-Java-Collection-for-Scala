@@ -2,7 +2,7 @@ package nejc4s
 
 import java.util.function._
 import java.util.stream.IntStream
-import java.util.{IntSummaryStatistics, OptionalDouble, OptionalInt, PrimitiveIterator}
+import java.util.{IntSummaryStatistics, OptionalDouble, OptionalInt}
 
 object JavaIntStream {
   trait Refined extends JavaIntStream with JavaBaseStream.Refined[Integer, JavaIntStream] {
@@ -39,7 +39,7 @@ object JavaIntStream {
     override def boxed: JavaStream.Refined[Integer]
     override def sequential(): JavaIntStream.Refined
     override def parallel(): JavaIntStream.Refined
-    //override def iterator(): PrimitiveIterator.OfInt
+    //override def iterator(): JavaPrimitiveIterator.OfInt
     override def spliterator(): Spliterator.OfInt.Refined
   }
 
@@ -90,7 +90,7 @@ object JavaIntStream {
     override def boxed: JavaStream.Refined[Integer] = new JavaStream.UnsafeUnmodifiable(delegate.boxed())
     override def sequential(): JavaIntStream.Refined = new JavaIntStream.UnsafeUnmodifiable(delegate.sequential())
     override def parallel(): JavaIntStream.Refined = new JavaIntStream.UnsafeUnmodifiable(delegate.parallel())
-    override def iterator(): PrimitiveIterator.OfInt = delegate.iterator()
+    override def iterator(): JavaPrimitiveIterator.OfInt = delegate.iterator()
     override def spliterator(): Spliterator.OfInt.Refined =
       new Spliterator.OfInt.UnsafeUnmodifiable(delegate.spliterator())
   }

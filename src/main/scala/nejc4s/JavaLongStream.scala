@@ -3,7 +3,7 @@ package nejc4s
 import java.lang
 import java.util.function._
 import java.util.stream.LongStream
-import java.util.{LongSummaryStatistics, OptionalDouble, OptionalLong, PrimitiveIterator}
+import java.util.{LongSummaryStatistics, OptionalDouble, OptionalLong}
 
 object JavaLongStream {
   trait Refined extends JavaLongStream with JavaBaseStream.Refined[lang.Long, JavaLongStream] {
@@ -39,7 +39,7 @@ object JavaLongStream {
     override def boxed: JavaStream.Refined[lang.Long]
     override def sequential(): JavaLongStream.Refined
     override def parallel(): JavaLongStream.Refined
-    //override def iterator(): PrimitiveIterator.OfLong
+    //override def iterator(): JavaPrimitiveIterator.OfLong
     override def spliterator(): Spliterator.OfLong.Refined
   }
 
@@ -89,7 +89,7 @@ object JavaLongStream {
     override def boxed: JavaStream.Refined[lang.Long] = new JavaStream.UnsafeUnmodifiable(delegate.boxed())
     override def sequential(): JavaLongStream.Refined = new JavaLongStream.UnsafeUnmodifiable(delegate.sequential())
     override def parallel(): JavaLongStream.Refined = new JavaLongStream.UnsafeUnmodifiable(delegate.parallel())
-    override def iterator(): PrimitiveIterator.OfLong = delegate.iterator()
+    override def iterator(): JavaPrimitiveIterator.OfLong = delegate.iterator()
     override def spliterator(): Spliterator.OfLong.Refined =
       new Spliterator.OfLong.UnsafeUnmodifiable(delegate.spliterator())
   }

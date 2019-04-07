@@ -11,6 +11,7 @@ package object nejc4s {
   type JavaIntStream = util.stream.IntStream
   type JavaIterable[A] = lang.Iterable[A]
   type JavaIterator[A] = util.Iterator[A]
+  type JavaPrimitiveIterator[A, C] = util.PrimitiveIterator[A, C]
   type JavaList[A] = util.List[A]
   type JavaListIterator[A] = util.ListIterator[A]
   type JavaLongStream = util.stream.LongStream
