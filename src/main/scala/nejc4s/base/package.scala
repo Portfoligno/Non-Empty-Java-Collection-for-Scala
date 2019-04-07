@@ -22,12 +22,16 @@ package object base {
 
 
   type False <: Boolean with FalseTag
+
   private[base] trait FalseTag extends Any
+
   val False: False = false.asInstanceOf[False]
 
 
   type True <: Boolean with TrueTag
+
   private[base] trait TrueTag extends Any
+
   val True: True = true.asInstanceOf[True]
 
 

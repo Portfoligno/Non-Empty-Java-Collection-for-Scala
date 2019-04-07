@@ -12,7 +12,6 @@ trait NonEmptyJavaIntStream extends JavaIntStream.Refined {
   override def distinct: NonEmptyJavaIntStream
   override def sorted: NonEmptyJavaIntStream
   override def peek(action: IntConsumer): NonEmptyJavaIntStream
-  //override def toArray(): Array[Int]
   override def reduce(op: IntBinaryOperator): PresentInt
   override def min(): PresentInt
   override def max(): PresentInt
@@ -42,7 +41,6 @@ object NonEmptyJavaIntStream {
     override def sorted: NonEmptyJavaIntStream = new NonEmptyJavaIntStream.UnsafeWrapper(delegate.sorted)
     override def peek(action: IntConsumer): NonEmptyJavaIntStream =
       new NonEmptyJavaIntStream.UnsafeWrapper(delegate.peek(action))
-    //override def toArray(): Array[Int]
     override def reduce(op: IntBinaryOperator): PresentInt = PresentInt.unsafeFromOptionalInt(delegate.reduce(op))
     override def min(): PresentInt = PresentInt.unsafeFromOptionalInt(delegate.min())
     override def max(): PresentInt = PresentInt.unsafeFromOptionalInt(delegate.max())

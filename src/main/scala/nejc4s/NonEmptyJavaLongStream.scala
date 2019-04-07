@@ -13,7 +13,6 @@ trait NonEmptyJavaLongStream extends JavaLongStream.Refined {
   override def distinct: NonEmptyJavaLongStream
   override def sorted: NonEmptyJavaLongStream
   override def peek(action: LongConsumer): NonEmptyJavaLongStream
-  //override def toArray(): Array[Long]
   override def reduce(op: LongBinaryOperator): PresentLong
   override def min(): PresentLong
   override def max(): PresentLong
@@ -42,7 +41,6 @@ object NonEmptyJavaLongStream {
     override def sorted: NonEmptyJavaLongStream = new NonEmptyJavaLongStream.UnsafeWrapper(delegate.sorted)
     override def peek(action: LongConsumer): NonEmptyJavaLongStream =
       new NonEmptyJavaLongStream.UnsafeWrapper(delegate.peek(action))
-    //override def toArray(): Array[Long]
     override def reduce(op: LongBinaryOperator): PresentLong = PresentLong.unsafeFromOptionalLong(delegate.reduce(op))
     override def min(): PresentLong = PresentLong.unsafeFromOptionalLong(delegate.min())
     override def max(): PresentLong = PresentLong.unsafeFromOptionalLong(delegate.max())

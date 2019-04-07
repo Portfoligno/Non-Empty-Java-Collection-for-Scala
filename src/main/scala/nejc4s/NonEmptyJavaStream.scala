@@ -14,8 +14,6 @@ trait NonEmptyJavaStream[A] extends JavaStream.Refined[A] {
   override def sorted: NonEmptyJavaStream[A]
   override def sorted(comparator: Comparator[_ >: A]): NonEmptyJavaStream[A]
   override def peek(action: Consumer[_ >: A]): NonEmptyJavaStream[A]
-  //override def toArray(): Array[AnyRef]
-  //override def toArray[T](generator: IntFunction[Array[T]]): Array[T]
   override def reduce(accumulator: BinaryOperator[A]): Present[A]
   override def min(comparator: Comparator[_ >: A]): Present[A]
   override def max(comparator: Comparator[_ >: A]): Present[A]
@@ -43,8 +41,6 @@ object NonEmptyJavaStream {
       new NonEmptyJavaStream.UnsafeWrapper(delegate.sorted(comparator))
     override def peek(action: Consumer[_ >: A]): NonEmptyJavaStream[A] =
       new NonEmptyJavaStream.UnsafeWrapper(delegate.peek(action))
-    //override def toArray(): Array[AnyRef]
-    //override def toArray[T](generator: IntFunction[Array[T]]): Array[T]
     override def reduce(accumulator: BinaryOperator[A]): Present[A] =
       Present.unsafeFromOptional(delegate.reduce(accumulator))
     override def min(comparator: Comparator[_ >: A]): Present[A] = Present.unsafeFromOptional(delegate.min(comparator))

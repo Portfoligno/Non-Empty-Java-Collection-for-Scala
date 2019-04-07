@@ -13,7 +13,6 @@ trait NonEmptyJavaDoubleStream extends JavaDoubleStream.Refined {
   override def distinct: NonEmptyJavaDoubleStream
   override def sorted: NonEmptyJavaDoubleStream
   override def peek(action: DoubleConsumer): NonEmptyJavaDoubleStream
-  //override def toArray(): Array[Double]
   override def reduce(op: DoubleBinaryOperator): PresentDouble
   override def min(): PresentDouble
   override def max(): PresentDouble
@@ -41,7 +40,6 @@ object NonEmptyJavaDoubleStream {
     override def sorted: NonEmptyJavaDoubleStream = new NonEmptyJavaDoubleStream.UnsafeWrapper(delegate.sorted)
     override def peek(action: DoubleConsumer): NonEmptyJavaDoubleStream =
       new NonEmptyJavaDoubleStream.UnsafeWrapper(delegate.peek(action))
-    //override def toArray(): Array[Double]
     override def reduce(op: DoubleBinaryOperator): PresentDouble =
       PresentDouble.unsafeFromOptionalDouble(delegate.reduce(op))
     override def min(): PresentDouble = PresentDouble.unsafeFromOptionalDouble(delegate.min())
