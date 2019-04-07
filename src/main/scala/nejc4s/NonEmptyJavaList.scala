@@ -26,8 +26,11 @@ object NonEmptyJavaList {
   def apply[A](x: A, xs: A*): JavaList.Refined[A] =
     new UnsafeWrapper((x +: xs.view).asJava)
 
-  def unapplySeq[A](xs: NonEmptyJavaList[A]): Some[(A, Seq[A])] = {
-    val v = xs.asScala
-    Some(v.head -> v.view.tail)
-  }
+  def unapplySeq[A](xs: JavaList[A]): Option[(A, Seq[A])] =
+    try {
+      Some(xs.get(0) -> xs.asScala.view.drop(1))
+    } catch {
+      case _: IndexOutOfBoundsException =>
+        None
+    }
 }
