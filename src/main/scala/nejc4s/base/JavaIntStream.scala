@@ -1,4 +1,4 @@
-package nejc4s
+package nejc4s.base
 
 import java.util.function._
 import java.util.stream.IntStream

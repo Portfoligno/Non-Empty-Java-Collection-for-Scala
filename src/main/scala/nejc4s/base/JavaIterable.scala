@@ -1,9 +1,11 @@
-package nejc4s
+package nejc4s.base
 
 import java.util.function.Consumer
 
+import nejc4s.base
+
 object JavaIterable {
-  private[nejc4s]
+  private[base]
   trait Refined[A] extends JavaIterable[A] {
     //override def iterator: JavaIterator[A]
 
@@ -11,7 +13,7 @@ object JavaIterable {
     override def spliterator: Spliterator.Refined[A] = new Spliterator.UnsafeUnmodifiable(super.spliterator)
   }
 
-  trait Proxy[A] extends nejc4s.Proxy with Refined[A] {
+  trait Proxy[A] extends base.Proxy with Refined[A] {
     protected
     override def delegate: JavaIterable[A]
 

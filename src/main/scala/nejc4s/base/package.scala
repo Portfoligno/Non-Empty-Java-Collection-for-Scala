@@ -1,7 +1,9 @@
+package nejc4s
+
 import java.{lang, util}
 import java.util.Optional
 
-package object nejc4s {
+package object base {
   type AutoCloseable = lang.AutoCloseable
   type Optional[A] = util.Optional[A]
   type Spliterator[A] = util.Spliterator[A]
@@ -20,12 +22,12 @@ package object nejc4s {
 
 
   type False <: Boolean with FalseTag
-  private[nejc4s] trait FalseTag extends Any
+  private[base] trait FalseTag extends Any
   val False: False = false.asInstanceOf[False]
 
 
   type True <: Boolean with TrueTag
-  private[nejc4s] trait TrueTag extends Any
+  private[base] trait TrueTag extends Any
   val True: True = true.asInstanceOf[True]
 
 
@@ -33,7 +35,7 @@ package object nejc4s {
   type Absent[A] <: Optional[A] with Absent.Tag
 
   object Absent {
-    private[nejc4s] trait Tag extends Any
+    private[base] trait Tag extends Any
 
     def unsafeFromOptional[A](optional: Optional[A]): Absent[A] =
       if (!optional.isPresent) {
@@ -54,7 +56,7 @@ package object nejc4s {
   type Present[A] <: Optional[A] with Present.Tag
 
   object Present {
-    private[nejc4s] trait Tag extends Any
+    private[base] trait Tag extends Any
 
     def unsafeFromOptional[A](optional: Optional[A]): Present[A] =
       if (optional.isPresent) {
@@ -95,7 +97,7 @@ package object nejc4s {
   type NaturalInt <: NaturalIntX with NaturalInt.Tag
 
   object NaturalInt {
-    private[nejc4s] trait Tag extends Any
+    private[base] trait Tag extends Any
 
     def fromInt(i: Int): Option[NaturalInt] =
       if (i >= 0) {
@@ -116,7 +118,7 @@ package object nejc4s {
   type NaturalLong <: NaturalLongX with NaturalLong.Tag
 
   object NaturalLong {
-    private[nejc4s] trait Tag extends Any
+    private[base] trait Tag extends Any
 
     def fromLong(i: Long): Option[NaturalLong] =
       if (i >= 0) {
@@ -137,7 +139,7 @@ package object nejc4s {
   type PositiveIntX <: NaturalIntX with PositiveIntX.Tag
 
   object PositiveIntX {
-    private[nejc4s] trait Tag extends Any
+    private[base] trait Tag extends Any
 
     def fromInt(i: Int): Option[PositiveIntX] =
       if (i > 0 || i == -1) {
@@ -158,7 +160,7 @@ package object nejc4s {
   type NaturalIntX <: Int with NaturalIntX.Tag
 
   object NaturalIntX {
-    private[nejc4s] trait Tag extends Any
+    private[base] trait Tag extends Any
 
     def fromInt(i: Int): Option[NaturalIntX] =
       if (i >= -1) {
@@ -179,7 +181,7 @@ package object nejc4s {
   type NaturalLongX <: Long with NaturalLongX.Tag
 
   object NaturalLongX {
-    private[nejc4s] trait Tag extends Any
+    private[base] trait Tag extends Any
 
     def fromLong(i: Long): Option[NaturalLongX] =
       if (i >= -1) {

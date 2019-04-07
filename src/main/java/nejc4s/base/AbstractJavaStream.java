@@ -1,4 +1,4 @@
-package nejc4s;
+package nejc4s.base;
 
 import java.util.function.IntFunction;
 import java.util.stream.Stream;

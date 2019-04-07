@@ -1,4 +1,4 @@
-package nejc4s
+package nejc4s.base
 
 import java.util.Comparator
 import java.util.function.{Consumer, DoubleConsumer, IntConsumer, LongConsumer}

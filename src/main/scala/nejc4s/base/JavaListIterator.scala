@@ -1,4 +1,4 @@
-package nejc4s
+package nejc4s.base
 
 object JavaListIterator {
   trait Refined[A] extends JavaListIterator[A] with JavaIterator.Refined[A] {

@@ -1,12 +1,14 @@
-package nejc4s
+package nejc4s.base
+
+import nejc4s.base
 
 object AutoCloseable {
-  private[nejc4s]
+  private[base]
   type Refined = AutoCloseable /*{
     override def close(): Unit
   }*/
 
-  trait Proxy extends nejc4s.Proxy with Refined {
+  trait Proxy extends base.Proxy with Refined {
     protected
     override def delegate: AutoCloseable
 

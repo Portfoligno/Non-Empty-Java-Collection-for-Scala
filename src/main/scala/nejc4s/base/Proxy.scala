@@ -1,4 +1,4 @@
-package nejc4s
+package nejc4s.base
 
 trait Proxy {
   protected

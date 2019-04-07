@@ -1,9 +1,11 @@
-package nejc4s
+package nejc4s.base
 
 import java.util.function.Consumer
 
+import nejc4s.base
+
 object JavaIterator {
-  private[nejc4s]
+  private[base]
   type Refined[A] = JavaIterator[A] /*{
     override def hasNext: Boolean
     override def next(): A
@@ -11,7 +13,7 @@ object JavaIterator {
     override def forEachRemaining(action: Consumer[_ >: A]): Unit = super.forEachRemaining(action)
   }*/
 
-  trait Proxy[A] extends nejc4s.Proxy with Refined[A] {
+  trait Proxy[A] extends base.Proxy with Refined[A] {
     protected
     override def delegate: JavaIterator[A]
 
