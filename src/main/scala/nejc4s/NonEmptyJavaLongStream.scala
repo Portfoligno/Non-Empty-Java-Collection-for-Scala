@@ -3,7 +3,7 @@ package nejc4s
 import java.lang
 import java.util.function._
 
-import nejc4s.base.{JavaLongStream, PositiveLong}
+import nejc4s.base.{JavaLongStream, PositiveLong, PresentDouble, PresentLong}
 
 trait NonEmptyJavaLongStream extends JavaLongStream.Refined {
   override def map(mapper: LongUnaryOperator): NonEmptyJavaLongStream
@@ -14,13 +14,13 @@ trait NonEmptyJavaLongStream extends JavaLongStream.Refined {
   override def sorted: NonEmptyJavaLongStream
   override def peek(action: LongConsumer): NonEmptyJavaLongStream
   //override def toArray(): Array[Long]
-  //override def reduce(op: LongBinaryOperator): PresentLong
-  //override def min(): PresentLong
-  //override def max(): PresentLong
+  override def reduce(op: LongBinaryOperator): PresentLong
+  override def min(): PresentLong
+  override def max(): PresentLong
   override def count(): PositiveLong
-  //override def average(): PresentDouble
-  //override def findFirst(): PresentLong
-  //override def findAny(): PresentLong
+  override def average(): PresentDouble
+  override def findFirst(): PresentLong
+  override def findAny(): PresentLong
   override def asDoubleStream: NonEmptyJavaDoubleStream
   override def boxed: NonEmptyJavaStream[lang.Long]
   override def sequential(): NonEmptyJavaLongStream

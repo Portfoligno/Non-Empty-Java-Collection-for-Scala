@@ -1,7 +1,7 @@
 package nejc4s
 
+import java.util.{Optional, OptionalDouble, OptionalInt, OptionalLong}
 import java.{lang, util}
-import java.util.Optional
 
 package object base {
   type AutoCloseable = lang.AutoCloseable
@@ -32,6 +32,65 @@ package object base {
 
 
 
+  type AbsentInt <: OptionalInt with Absent.Tag
+
+  object AbsentInt {
+    private[base] trait Tag extends Any
+
+    def unsafeFromOptionalInt(optional: OptionalInt): AbsentInt =
+      if (!optional.isPresent) {
+        optional.asInstanceOf[AbsentInt]
+      } else {
+        throw new IllegalArgumentException(String.valueOf(optional))
+      }
+
+
+    def apply: AbsentInt =
+      Optional.empty().asInstanceOf[AbsentInt]
+
+    def unapply(a: Optional[_]): Boolean =
+      !a.isPresent
+  }
+
+
+  type AbsentLong <: OptionalLong with Absent.Tag
+
+  object AbsentLong {
+    def unsafeFromOptionalLong(optional: OptionalLong): AbsentLong =
+      if (!optional.isPresent) {
+        optional.asInstanceOf[AbsentLong]
+      } else {
+        throw new IllegalArgumentException(String.valueOf(optional))
+      }
+
+
+    def apply: AbsentLong =
+      Optional.empty().asInstanceOf[AbsentLong]
+
+    def unapply(a: Optional[_]): Boolean =
+      !a.isPresent
+  }
+
+
+  type AbsentDouble <: OptionalDouble with Absent.Tag
+
+  object AbsentDouble {
+    def unsafeFromOptionalDouble(optional: OptionalDouble): AbsentDouble =
+      if (!optional.isPresent) {
+        optional.asInstanceOf[AbsentDouble]
+      } else {
+        throw new IllegalArgumentException(String.valueOf(optional))
+      }
+
+
+    def apply: AbsentDouble =
+      Optional.empty().asInstanceOf[AbsentDouble]
+
+    def unapply(a: Optional[_]): Boolean =
+      !a.isPresent
+  }
+
+
   type Absent[A] <: Optional[A] with Absent.Tag
 
   object Absent {
@@ -50,6 +109,63 @@ package object base {
 
     def unapply(a: Optional[_]): Boolean =
       !a.isPresent
+  }
+
+
+  type PresentInt <: OptionalInt with Present.Tag
+
+  object PresentInt {
+    def unsafeFromOptionalInt(optional: OptionalInt): PresentInt =
+      if (optional.isPresent) {
+        optional.asInstanceOf[PresentInt]
+      } else {
+        throw new IllegalArgumentException(String.valueOf(optional))
+      }
+
+
+    def apply(a: Int): PresentInt =
+      Optional.of(a).asInstanceOf[PresentInt]
+
+    def unapply(a: OptionalInt): Option[Int] =
+      if (a.isPresent) Some(a.getAsInt) else None
+  }
+
+
+  type PresentLong <: OptionalLong with Present.Tag
+
+  object PresentLong {
+    def unsafeFromOptionalLong(optional: OptionalLong): PresentLong =
+      if (optional.isPresent) {
+        optional.asInstanceOf[PresentLong]
+      } else {
+        throw new IllegalArgumentException(String.valueOf(optional))
+      }
+
+
+    def apply(a: Long): PresentLong =
+      Optional.of(a).asInstanceOf[PresentLong]
+
+    def unapply(a: OptionalLong): Option[Long] =
+      if (a.isPresent) Some(a.getAsLong) else None
+  }
+
+
+  type PresentDouble <: OptionalDouble with Present.Tag
+
+  object PresentDouble {
+    def unsafeFromOptionalDouble(optional: OptionalDouble): PresentDouble =
+      if (optional.isPresent) {
+        optional.asInstanceOf[PresentDouble]
+      } else {
+        throw new IllegalArgumentException(String.valueOf(optional))
+      }
+
+
+    def apply(a: Double): PresentDouble =
+      Optional.of(a).asInstanceOf[PresentDouble]
+
+    def unapply(a: OptionalDouble): Option[Double] =
+      if (a.isPresent) Some(a.getAsDouble) else None
   }
 
 
@@ -113,11 +229,9 @@ package object base {
   }
 
 
-  type NaturalInt <: NaturalIntX with NaturalInt.Tag
+  type NaturalInt <: NaturalIntX with NaturalLong.Tag
 
   object NaturalInt {
-    private[base] trait Tag extends Any
-
     def fromInt(i: Int): Option[NaturalInt] =
       if (i >= 0) {
         Some(i.asInstanceOf[NaturalInt])
@@ -155,11 +269,9 @@ package object base {
   }
 
 
-  type PositiveIntX <: NaturalIntX with PositiveIntX.Tag
+  type PositiveIntX <: NaturalIntX with PositiveLongX.Tag
 
   object PositiveIntX {
-    private[base] trait Tag extends Any
-
     def fromInt(i: Int): Option[PositiveIntX] =
       if (i > 0 || i == -1) {
         Some(i.asInstanceOf[PositiveIntX])
@@ -197,11 +309,9 @@ package object base {
   }
 
 
-  type NaturalIntX <: Int with NaturalIntX.Tag
+  type NaturalIntX <: Int with NaturalLongX.Tag
 
   object NaturalIntX {
-    private[base] trait Tag extends Any
-
     def fromInt(i: Int): Option[NaturalIntX] =
       if (i >= -1) {
         Some(i.asInstanceOf[NaturalIntX])
