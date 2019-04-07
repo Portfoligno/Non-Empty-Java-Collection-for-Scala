@@ -8,3 +8,12 @@ trait NonEmptyJavaCollection[A] extends JavaCollection.Refined[A] {
   override def stream: NonEmptyJavaStream[A] = new NonEmptyJavaStream.UnsafeWrapper(super.stream)
   override def parallelStream: NonEmptyJavaStream[A] = new NonEmptyJavaStream.UnsafeWrapper(super.parallelStream)
 }
+
+object NonEmptyJavaCollection {
+  trait UnsafeProxy[A] extends JavaCollection.UnsafeProxy[A] with NonEmptyJavaCollection[A] {
+    override def size: PositiveInt = PositiveInt.unsafeFromInt(delegate.size)
+    override def isEmpty: False = { require(!delegate.isEmpty); False }
+    override def stream: NonEmptyJavaStream[A] = new NonEmptyJavaStream.UnsafeWrapper(delegate.stream)
+    override def parallelStream: NonEmptyJavaStream[A] = new NonEmptyJavaStream.UnsafeWrapper(delegate.parallelStream)
+  }
+}
