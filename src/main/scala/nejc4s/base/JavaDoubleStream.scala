@@ -95,5 +95,5 @@ object JavaDoubleStream {
     override def unordered(): JavaDoubleStream.Refined = new JavaDoubleStream.UnsafeUnmodifiable(delegate.unordered())
   }
 
-  class UnsafeUnmodifiable(override val delegate: JavaDoubleStream) extends UnsafeProxy
+  class UnsafeUnmodifiable(override protected val delegate: JavaDoubleStream) extends UnsafeProxy
 }

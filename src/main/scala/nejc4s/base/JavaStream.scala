@@ -101,5 +101,5 @@ object JavaStream {
     override def unordered(): JavaStream.Refined[A] = new JavaStream.UnsafeUnmodifiable(delegate.unordered())
   }
 
-  class UnsafeUnmodifiable[A](override val delegate: JavaStream[A]) extends UnsafeProxy[A]
+  class UnsafeUnmodifiable[A](override protected val delegate: JavaStream[A]) extends UnsafeProxy[A]
 }

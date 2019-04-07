@@ -99,5 +99,5 @@ object JavaIntStream {
     override def unordered(): JavaIntStream.Refined = new JavaIntStream.UnsafeUnmodifiable(delegate.unordered())
   }
 
-  class UnsafeUnmodifiable(override val delegate: JavaIntStream) extends UnsafeProxy
+  class UnsafeUnmodifiable(override protected val delegate: JavaIntStream) extends UnsafeProxy
 }

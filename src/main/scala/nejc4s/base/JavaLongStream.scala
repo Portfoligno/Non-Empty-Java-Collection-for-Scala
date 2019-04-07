@@ -98,5 +98,5 @@ object JavaLongStream {
     override def unordered(): JavaLongStream.Refined = new JavaLongStream.UnsafeUnmodifiable(delegate.unordered())
   }
 
-  class UnsafeUnmodifiable(override val delegate: JavaLongStream) extends UnsafeProxy
+  class UnsafeUnmodifiable(override protected val delegate: JavaLongStream) extends UnsafeProxy
 }
