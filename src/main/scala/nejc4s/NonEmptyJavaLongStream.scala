@@ -25,4 +25,5 @@ trait NonEmptyJavaLongStream extends JavaLongStream.Refined {
   override def boxed: NonEmptyJavaStream[lang.Long]
   override def sequential(): NonEmptyJavaLongStream
   override def parallel(): NonEmptyJavaLongStream
+  override def unordered(): NonEmptyJavaLongStream
 }

@@ -22,4 +22,7 @@ trait NonEmptyJavaStream[A] extends JavaStream.Refined[A] {
   override def count(): PositiveLong
   override def findFirst(): Present[A]
   override def findAny(): Present[A]
+  override def sequential(): NonEmptyJavaStream[A]
+  override def parallel(): NonEmptyJavaStream[A]
+  override def unordered(): NonEmptyJavaStream[A]
 }

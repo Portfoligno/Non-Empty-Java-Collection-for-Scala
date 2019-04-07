@@ -41,6 +41,8 @@ object JavaLongStream {
     override def parallel(): JavaLongStream.Refined
     //override def iterator(): JavaPrimitiveIterator.OfLong
     override def spliterator(): Spliterator.OfLong.Refined
+
+    override def unordered(): JavaLongStream.Refined
   }
 
   trait UnsafeProxy extends JavaBaseStream.UnsafeProxy[lang.Long, JavaLongStream] with Refined {
@@ -92,6 +94,8 @@ object JavaLongStream {
     override def iterator(): JavaPrimitiveIterator.OfLong = delegate.iterator()
     override def spliterator(): Spliterator.OfLong.Refined =
       new Spliterator.OfLong.UnsafeUnmodifiable(delegate.spliterator())
+
+    override def unordered(): JavaLongStream.Refined = new JavaLongStream.UnsafeUnmodifiable(delegate.unordered())
   }
 
   class UnsafeUnmodifiable(override val delegate: JavaLongStream) extends UnsafeProxy

@@ -38,6 +38,10 @@ object JavaStream {
     //override def noneMatch(predicate: Predicate[_ >: A]): Boolean
     //override def findFirst(): Optional[A]
     //override def findAny(): Optional[A]
+
+    override def sequential(): JavaStream.Refined[A]
+    override def parallel(): JavaStream.Refined[A]
+    override def unordered(): JavaStream.Refined[A]
   }
 
   trait UnsafeProxy[A] extends AbstractJavaStream[A] with JavaBaseStream.UnsafeProxy[A, JavaStream[A]] with Refined[A] {
@@ -91,6 +95,10 @@ object JavaStream {
     override def noneMatch(predicate: Predicate[_ >: A]): Boolean = delegate.noneMatch(predicate)
     override def findFirst(): Optional[A] = delegate.findFirst()
     override def findAny(): Optional[A] = delegate.findAny()
+
+    override def sequential(): JavaStream.Refined[A] = new JavaStream.UnsafeUnmodifiable(delegate.sequential())
+    override def parallel(): JavaStream.Refined[A] = new JavaStream.UnsafeUnmodifiable(delegate.parallel())
+    override def unordered(): JavaStream.Refined[A] = new JavaStream.UnsafeUnmodifiable(delegate.unordered())
   }
 
   class UnsafeUnmodifiable[A](override val delegate: JavaStream[A]) extends UnsafeProxy[A]

@@ -25,4 +25,5 @@ trait NonEmptyJavaIntStream extends JavaIntStream.Refined {
   override def boxed: NonEmptyJavaStream[Integer]
   override def sequential(): NonEmptyJavaIntStream
   override def parallel(): NonEmptyJavaIntStream
+  override def unordered(): NonEmptyJavaIntStream
 }

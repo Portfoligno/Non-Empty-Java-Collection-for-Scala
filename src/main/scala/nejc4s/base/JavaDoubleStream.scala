@@ -40,6 +40,8 @@ object JavaDoubleStream {
     override def parallel(): JavaDoubleStream.Refined
     //override def iterator(): JavaPrimitiveIterator.OfDouble
     override def spliterator(): Spliterator.OfDouble.Refined
+
+    override def unordered(): JavaDoubleStream.Refined
   }
 
   trait UnsafeProxy extends JavaBaseStream.UnsafeProxy[lang.Double, JavaDoubleStream] with Refined {
@@ -89,6 +91,8 @@ object JavaDoubleStream {
     override def iterator(): JavaPrimitiveIterator.OfDouble = delegate.iterator()
     override def spliterator(): Spliterator.OfDouble.Refined =
       new Spliterator.OfDouble.UnsafeUnmodifiable(delegate.spliterator())
+
+    override def unordered(): JavaDoubleStream.Refined = new JavaDoubleStream.UnsafeUnmodifiable(delegate.unordered())
   }
 
   class UnsafeUnmodifiable(override val delegate: JavaDoubleStream) extends UnsafeProxy

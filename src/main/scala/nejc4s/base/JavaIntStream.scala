@@ -41,6 +41,8 @@ object JavaIntStream {
     override def parallel(): JavaIntStream.Refined
     //override def iterator(): JavaPrimitiveIterator.OfInt
     override def spliterator(): Spliterator.OfInt.Refined
+
+    override def unordered(): JavaIntStream.Refined
   }
 
   trait UnsafeProxy extends JavaBaseStream.UnsafeProxy[Integer, JavaIntStream] with Refined {
@@ -93,6 +95,8 @@ object JavaIntStream {
     override def iterator(): JavaPrimitiveIterator.OfInt = delegate.iterator()
     override def spliterator(): Spliterator.OfInt.Refined =
       new Spliterator.OfInt.UnsafeUnmodifiable(delegate.spliterator())
+
+    override def unordered(): JavaIntStream.Refined = new JavaIntStream.UnsafeUnmodifiable(delegate.unordered())
   }
 
   class UnsafeUnmodifiable(override val delegate: JavaIntStream) extends UnsafeProxy

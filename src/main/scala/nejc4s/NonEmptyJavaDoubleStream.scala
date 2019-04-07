@@ -24,4 +24,5 @@ trait NonEmptyJavaDoubleStream extends JavaDoubleStream.Refined {
   override def boxed: NonEmptyJavaStream[lang.Double]
   override def sequential(): NonEmptyJavaDoubleStream
   override def parallel(): NonEmptyJavaDoubleStream
+  override def unordered(): NonEmptyJavaDoubleStream
 }
