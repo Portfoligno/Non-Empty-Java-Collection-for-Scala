@@ -112,7 +112,7 @@ package object nejc4s {
   }
 
 
-  type NaturalLong <: Long with NaturalLong.Tag
+  type NaturalLong <: NaturalLongX with NaturalLong.Tag
 
   object NaturalLong {
     private[nejc4s] trait Tag extends Any
@@ -169,6 +169,27 @@ package object nejc4s {
     def unsafeFromInt(i: Int): NaturalIntX =
       if (i >= -1) {
         i.asInstanceOf[NaturalIntX]
+      } else {
+        throw new IllegalArgumentException(String.valueOf(i))
+      }
+  }
+
+
+  type NaturalLongX <: Long with NaturalLongX.Tag
+
+  object NaturalLongX {
+    private[nejc4s] trait Tag extends Any
+
+    def fromLong(i: Long): Option[NaturalLongX] =
+      if (i >= -1) {
+        Some(i.asInstanceOf[NaturalLongX])
+      } else {
+        None
+      }
+
+    def unsafeFromLong(i: Long): NaturalLongX =
+      if (i >= -1) {
+        i.asInstanceOf[NaturalLongX]
       } else {
         throw new IllegalArgumentException(String.valueOf(i))
       }

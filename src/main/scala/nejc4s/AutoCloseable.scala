@@ -6,7 +6,7 @@ object AutoCloseable {
     override def close(): Unit
   }*/
 
-  trait Proxy extends Refined with nejc4s.Proxy {
+  trait Proxy extends nejc4s.Proxy with Refined {
     protected
     override def delegate: AutoCloseable
 

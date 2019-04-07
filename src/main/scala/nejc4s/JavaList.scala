@@ -9,7 +9,7 @@ object JavaList {
     override def listIterator(index: Int): JavaListIterator.Refined[A]
     override def subList(fromIndex: Int, toIndex: Int): JavaList.Refined[A]
 
-    //override def spliterator: JavaSpliterator[A] = super.spliterator
+    override def spliterator: Spliterator.Refined[A] = new Spliterator.UnsafeUnmodifiable(super.spliterator)
   }
 
   trait UnsafeProxy[A] extends JavaCollection.UnsafeProxy[A] with Refined[A] {
@@ -26,7 +26,7 @@ object JavaList {
     override def subList(fromIndex: Int, toIndex: Int): JavaList.Refined[A] =
       new UnsafeUnmodifiable(delegate.subList(fromIndex, toIndex))
 
-    override def spliterator: Spliterator[A] = delegate.spliterator
+    override def spliterator: Spliterator.Refined[A] = new Spliterator.UnsafeUnmodifiable(delegate.spliterator)
 
     override def addAll(index: Int, c: JavaCollection[_ <: A]): Boolean =
       throw new UnsupportedOperationException("addAll")
@@ -35,7 +35,9 @@ object JavaList {
     override def remove(index: Int): A = throw new UnsupportedOperationException("remove")
   }
 
-  class UnsafeUnmodifiable[A](override protected val delegate: JavaList[A]) extends UnsafeProxy[A]
+  class UnsafeUnmodifiable[A](
+    override protected val delegate: JavaList[A]
+  ) extends UnsafeProxy[A] with JavaList[A] with JavaCollection[A]
 
 
   import scala.collection.JavaConverters._

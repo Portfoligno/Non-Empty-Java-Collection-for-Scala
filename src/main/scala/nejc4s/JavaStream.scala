@@ -40,7 +40,7 @@ object JavaStream {
     //override def findAn()y: Optional[A]
   }
 
-  trait UnsafeProxy[A] extends AbstractJavaStream[A] with Refined[A] with JavaBaseStream.Proxy[A, JavaStream[A]] {
+  trait UnsafeProxy[A] extends AbstractJavaStream[A] with JavaBaseStream.UnsafeProxy[A, JavaStream[A]] with Refined[A] {
     protected
     override def delegate: JavaStream[A]
 

@@ -8,7 +8,7 @@ object JavaListIterator {
     override def previousIndex: NaturalIntX
   }
 
-  trait UnsafeProxy[A] extends Refined[A] with JavaIterator.Proxy[A] {
+  trait UnsafeProxy[A] extends JavaIterator.Proxy[A] with Refined[A] {
     protected
     override def delegate: JavaListIterator[A]
 

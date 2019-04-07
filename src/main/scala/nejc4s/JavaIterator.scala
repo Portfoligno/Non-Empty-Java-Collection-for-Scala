@@ -11,7 +11,7 @@ object JavaIterator {
     override def forEachRemaining(action: Consumer[_ >: A]): Unit = super.forEachRemaining(action)
   }*/
 
-  trait Proxy[A] extends Refined[A] with nejc4s.Proxy {
+  trait Proxy[A] extends nejc4s.Proxy with Refined[A] {
     protected
     override def delegate: JavaIterator[A]
 
