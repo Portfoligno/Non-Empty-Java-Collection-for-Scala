@@ -56,7 +56,7 @@ object Spliterator {
 
     trait UnsafeProxy extends Spliterator.UnsafeProxy[Integer] with Refined {
       protected
-      override def delegate: Spliterator.OfInt
+      override def delegate: OfInt
 
       override def trySplit(): Spliterator.OfInt.Refined = new Spliterator.OfInt.UnsafeUnmodifiable(delegate.trySplit())
       override def tryAdvance(action: IntConsumer): Boolean = delegate.tryAdvance(action)
@@ -66,9 +66,7 @@ object Spliterator {
       override def forEachRemaining(action: Consumer[_ >: Integer]): Unit = delegate.forEachRemaining(action)
     }
 
-    class UnsafeUnmodifiable(
-      override protected val delegate: Spliterator.OfInt
-    ) extends UnsafeProxy with Spliterator[Integer]
+    class UnsafeUnmodifiable(override protected val delegate: OfInt) extends UnsafeProxy with Spliterator[Integer]
   }
 
 
@@ -84,7 +82,7 @@ object Spliterator {
 
     trait UnsafeProxy extends Spliterator.UnsafeProxy[lang.Long] with Refined {
       protected
-      override def delegate: Spliterator.OfLong
+      override def delegate: OfLong
 
       override def trySplit(): Spliterator.OfLong.Refined =
         new Spliterator.OfLong.UnsafeUnmodifiable(delegate.trySplit())
@@ -95,9 +93,7 @@ object Spliterator {
       override def forEachRemaining(action: Consumer[_ >: lang.Long]): Unit = delegate.forEachRemaining(action)
     }
 
-    class UnsafeUnmodifiable(
-      override protected val delegate: Spliterator.OfLong
-    ) extends UnsafeProxy with Spliterator[lang.Long]
+    class UnsafeUnmodifiable(override protected val delegate: OfLong) extends UnsafeProxy with Spliterator[lang.Long]
   }
 
 
@@ -113,7 +109,7 @@ object Spliterator {
 
     trait UnsafeProxy extends Spliterator.UnsafeProxy[lang.Double] with Refined {
       protected
-      override def delegate: Spliterator.OfDouble
+      override def delegate: OfDouble
 
       override def trySplit(): Spliterator.OfDouble.Refined =
         new Spliterator.OfDouble.UnsafeUnmodifiable(delegate.trySplit())
@@ -125,7 +121,7 @@ object Spliterator {
     }
 
     class UnsafeUnmodifiable(
-      override protected val delegate: Spliterator.OfDouble
+      override protected val delegate: OfDouble
     ) extends UnsafeProxy with Spliterator[lang.Double]
   }
 }
