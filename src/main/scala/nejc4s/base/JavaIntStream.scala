@@ -84,10 +84,10 @@ object JavaIntStream {
     override def noneMatch(predicate: IntPredicate): Boolean = delegate.noneMatch(predicate)
     override def findFirst(): OptionalInt = delegate.findFirst()
     override def findAny(): OptionalInt = delegate.findAny()
-    override def asLongStream: JavaLongStream.Refined = new JavaLongStream.UnsafeUnmodifiable(delegate.asLongStream())
+    override def asLongStream: JavaLongStream.Refined = new JavaLongStream.UnsafeUnmodifiable(delegate.asLongStream)
     override def asDoubleStream: JavaDoubleStream.Refined =
-      new JavaDoubleStream.UnsafeUnmodifiable(delegate.asDoubleStream())
-    override def boxed: JavaStream.Refined[Integer] = new JavaStream.UnsafeUnmodifiable(delegate.boxed())
+      new JavaDoubleStream.UnsafeUnmodifiable(delegate.asDoubleStream)
+    override def boxed: JavaStream.Refined[Integer] = new JavaStream.UnsafeUnmodifiable(delegate.boxed)
     override def sequential(): JavaIntStream.Refined = new JavaIntStream.UnsafeUnmodifiable(delegate.sequential())
     override def parallel(): JavaIntStream.Refined = new JavaIntStream.UnsafeUnmodifiable(delegate.parallel())
     override def iterator(): JavaPrimitiveIterator.OfInt = delegate.iterator()

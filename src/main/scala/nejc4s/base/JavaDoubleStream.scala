@@ -83,7 +83,7 @@ object JavaDoubleStream {
     override def noneMatch(predicate: DoublePredicate): Boolean = delegate.noneMatch(predicate)
     override def findFirst(): OptionalDouble = delegate.findFirst()
     override def findAny(): OptionalDouble = delegate.findAny()
-    override def boxed: JavaStream.Refined[lang.Double] = new JavaStream.UnsafeUnmodifiable(delegate.boxed())
+    override def boxed: JavaStream.Refined[lang.Double] = new JavaStream.UnsafeUnmodifiable(delegate.boxed)
     override def sequential(): JavaDoubleStream.Refined = new JavaDoubleStream.UnsafeUnmodifiable(delegate.sequential())
     override def parallel(): JavaDoubleStream.Refined = new JavaDoubleStream.UnsafeUnmodifiable(delegate.parallel())
     override def iterator(): JavaPrimitiveIterator.OfDouble = delegate.iterator()

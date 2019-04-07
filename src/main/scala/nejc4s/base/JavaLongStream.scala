@@ -85,8 +85,8 @@ object JavaLongStream {
     override def findFirst(): OptionalLong = delegate.findFirst()
     override def findAny(): OptionalLong = delegate.findAny()
     override def asDoubleStream: JavaDoubleStream.Refined =
-      new JavaDoubleStream.UnsafeUnmodifiable(delegate.asDoubleStream())
-    override def boxed: JavaStream.Refined[lang.Long] = new JavaStream.UnsafeUnmodifiable(delegate.boxed())
+      new JavaDoubleStream.UnsafeUnmodifiable(delegate.asDoubleStream)
+    override def boxed: JavaStream.Refined[lang.Long] = new JavaStream.UnsafeUnmodifiable(delegate.boxed)
     override def sequential(): JavaLongStream.Refined = new JavaLongStream.UnsafeUnmodifiable(delegate.sequential())
     override def parallel(): JavaLongStream.Refined = new JavaLongStream.UnsafeUnmodifiable(delegate.parallel())
     override def iterator(): JavaPrimitiveIterator.OfLong = delegate.iterator()
