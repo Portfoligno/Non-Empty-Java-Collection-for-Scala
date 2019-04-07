@@ -43,7 +43,7 @@ object JavaList {
   import scala.collection.JavaConverters._
 
   def apply[A](xs: A*): JavaList.Refined[A] =
-    new UnsafeWrapper[A](xs.asJava)
+    new UnsafeWrapper(xs.asJava)
 
   def unapplySeq[A](xs: JavaList[A]): Some[Seq[A]] =
     Some(xs.asScala)
