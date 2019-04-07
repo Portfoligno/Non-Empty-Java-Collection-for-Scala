@@ -1,15 +1,15 @@
 package nejc4s
 
 import java.util.Comparator
-import java.util.function.{BinaryOperator, Consumer, Function}
+import java.util.function.{BinaryOperator, Consumer, Function, ToDoubleFunction, ToIntFunction, ToLongFunction}
 
 import nejc4s.base.{JavaStream, PositiveLong, Present}
 
 trait NonEmptyJavaStream[A] extends JavaStream.Refined[A] {
   override def map[B](mapper: Function[_ >: A, _ <: B]): NonEmptyJavaStream[B]
-  //override def mapToInt(mapper: ToIntFunction[_ >: A]): JavaIntStream.Refined
-  //override def mapToLong(mapper: ToLongFunction[_ >: A]): JavaLongStream.Refined
-  //override def mapToDouble(mapper: ToDoubleFunction[_ >: A]): JavaDoubleStream.Refined
+  override def mapToInt(mapper: ToIntFunction[_ >: A]): NonEmptyJavaIntStream
+  override def mapToLong(mapper: ToLongFunction[_ >: A]): NonEmptyJavaLongStream
+  override def mapToDouble(mapper: ToDoubleFunction[_ >: A]): NonEmptyJavaDoubleStream
   override def distinct: NonEmptyJavaStream[A]
   override def sorted: NonEmptyJavaStream[A]
   override def sorted(comparator: Comparator[_ >: A]): NonEmptyJavaStream[A]

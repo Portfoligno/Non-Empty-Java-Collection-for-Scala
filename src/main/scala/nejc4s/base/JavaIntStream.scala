@@ -33,7 +33,7 @@ object JavaIntStream {
     //override def allMatch(predicate: IntPredicate): Boolean
     //override def noneMatch(predicate: IntPredicate): Boolean
     //override def findFirst(): OptionalInt
-    //override def findAn()y: OptionalInt
+    //override def findAny(): OptionalInt
     override def asLongStream: JavaLongStream.Refined
     override def asDoubleStream: JavaDoubleStream.Refined
     override def boxed: JavaStream.Refined[Integer]
