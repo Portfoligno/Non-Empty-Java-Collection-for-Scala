@@ -16,7 +16,7 @@ object JavaBaseStream {
     override def delegate: JavaBaseStream[A, S]
 
     override def iterator(): JavaIterator[A] = delegate.iterator()
-    override def spliterator(): Spliterator.Refined[A] = new Spliterator.UnsafeUnmodifiable(delegate.spliterator())
+    override def spliterator(): Spliterator.Refined[A] = new Spliterator.UnsafeWrapper(delegate.spliterator())
     override def isParallel: Boolean = delegate.isParallel
     override def sequential(): S = delegate.sequential()
     override def parallel(): S = delegate.parallel()

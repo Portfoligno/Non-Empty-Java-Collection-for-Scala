@@ -50,24 +50,24 @@ object JavaIntStream {
     override def delegate: JavaIntStream
 
     override def filter(predicate: IntPredicate): JavaIntStream.Refined =
-      new JavaIntStream.UnsafeUnmodifiable(delegate.filter(predicate))
+      new JavaIntStream.UnsafeWrapper(delegate.filter(predicate))
     override def map(mapper: IntUnaryOperator): JavaIntStream.Refined =
-      new JavaIntStream.UnsafeUnmodifiable(delegate.map(mapper))
+      new JavaIntStream.UnsafeWrapper(delegate.map(mapper))
     override def mapToObj[B](mapper: IntFunction[_ <: B]): JavaStream.Refined[B] =
-      new JavaStream.UnsafeUnmodifiable(delegate.mapToObj(mapper))
+      new JavaStream.UnsafeWrapper(delegate.mapToObj(mapper))
     override def mapToLong(mapper: IntToLongFunction): JavaLongStream.Refined =
-      new JavaLongStream.UnsafeUnmodifiable(delegate.mapToLong(mapper))
+      new JavaLongStream.UnsafeWrapper(delegate.mapToLong(mapper))
     override def mapToDouble(mapper: IntToDoubleFunction): JavaDoubleStream.Refined =
-      new JavaDoubleStream.UnsafeUnmodifiable(delegate.mapToDouble(mapper))
+      new JavaDoubleStream.UnsafeWrapper(delegate.mapToDouble(mapper))
     override def flatMap(mapper: IntFunction[_ <: IntStream]): JavaIntStream.Refined =
-      new JavaIntStream.UnsafeUnmodifiable(delegate.flatMap(mapper))
-    override def distinct: JavaIntStream.Refined = new JavaIntStream.UnsafeUnmodifiable(delegate.distinct)
-    override def sorted: JavaIntStream.Refined = new JavaIntStream.UnsafeUnmodifiable(delegate.sorted)
+      new JavaIntStream.UnsafeWrapper(delegate.flatMap(mapper))
+    override def distinct: JavaIntStream.Refined = new JavaIntStream.UnsafeWrapper(delegate.distinct)
+    override def sorted: JavaIntStream.Refined = new JavaIntStream.UnsafeWrapper(delegate.sorted)
     override def peek(action: IntConsumer): JavaIntStream.Refined =
-      new JavaIntStream.UnsafeUnmodifiable(delegate.peek(action))
+      new JavaIntStream.UnsafeWrapper(delegate.peek(action))
     override def limit(maxSize: Long): JavaIntStream.Refined =
-      new JavaIntStream.UnsafeUnmodifiable(delegate.limit(maxSize))
-    override def skip(n: Long): JavaIntStream.Refined = new JavaIntStream.UnsafeUnmodifiable(delegate.skip(n))
+      new JavaIntStream.UnsafeWrapper(delegate.limit(maxSize))
+    override def skip(n: Long): JavaIntStream.Refined = new JavaIntStream.UnsafeWrapper(delegate.skip(n))
     override def forEach(action: IntConsumer): Unit = delegate.forEach(action)
     override def forEachOrdered(action: IntConsumer): Unit = delegate.forEachOrdered(action)
     override def toArray(): Array[Int] = delegate.toArray()
@@ -86,18 +86,18 @@ object JavaIntStream {
     override def noneMatch(predicate: IntPredicate): Boolean = delegate.noneMatch(predicate)
     override def findFirst(): OptionalInt = delegate.findFirst()
     override def findAny(): OptionalInt = delegate.findAny()
-    override def asLongStream: JavaLongStream.Refined = new JavaLongStream.UnsafeUnmodifiable(delegate.asLongStream)
+    override def asLongStream: JavaLongStream.Refined = new JavaLongStream.UnsafeWrapper(delegate.asLongStream)
     override def asDoubleStream: JavaDoubleStream.Refined =
-      new JavaDoubleStream.UnsafeUnmodifiable(delegate.asDoubleStream)
-    override def boxed: JavaStream.Refined[Integer] = new JavaStream.UnsafeUnmodifiable(delegate.boxed)
-    override def sequential(): JavaIntStream.Refined = new JavaIntStream.UnsafeUnmodifiable(delegate.sequential())
-    override def parallel(): JavaIntStream.Refined = new JavaIntStream.UnsafeUnmodifiable(delegate.parallel())
+      new JavaDoubleStream.UnsafeWrapper(delegate.asDoubleStream)
+    override def boxed: JavaStream.Refined[Integer] = new JavaStream.UnsafeWrapper(delegate.boxed)
+    override def sequential(): JavaIntStream.Refined = new JavaIntStream.UnsafeWrapper(delegate.sequential())
+    override def parallel(): JavaIntStream.Refined = new JavaIntStream.UnsafeWrapper(delegate.parallel())
     override def iterator(): JavaPrimitiveIterator.OfInt = delegate.iterator()
     override def spliterator(): Spliterator.OfInt.Refined =
-      new Spliterator.OfInt.UnsafeUnmodifiable(delegate.spliterator())
+      new Spliterator.OfInt.UnsafeWrapper(delegate.spliterator())
 
-    override def unordered(): JavaIntStream.Refined = new JavaIntStream.UnsafeUnmodifiable(delegate.unordered())
+    override def unordered(): JavaIntStream.Refined = new JavaIntStream.UnsafeWrapper(delegate.unordered())
   }
 
-  class UnsafeUnmodifiable(override protected val delegate: JavaIntStream) extends UnsafeProxy
+  class UnsafeWrapper(override protected val delegate: JavaIntStream) extends UnsafeProxy
 }

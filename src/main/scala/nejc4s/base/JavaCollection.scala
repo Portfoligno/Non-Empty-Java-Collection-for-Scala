@@ -11,9 +11,9 @@ object JavaCollection {
     //override def toArray[T](a: Array[T]): Array[T]
     //override def containsAll(c: JavaCollection[_]): Boolean
 
-    override def spliterator: Spliterator.Refined[A] = new Spliterator.UnsafeUnmodifiable(super.spliterator)
-    override def stream: JavaStream.Refined[A] = new JavaStream.UnsafeUnmodifiable(super.stream)
-    override def parallelStream: JavaStream.Refined[A] = new JavaStream.UnsafeUnmodifiable(super.parallelStream)
+    override def spliterator: Spliterator.Refined[A] = new Spliterator.UnsafeWrapper(super.spliterator)
+    override def stream: JavaStream.Refined[A] = new JavaStream.UnsafeWrapper(super.stream)
+    override def parallelStream: JavaStream.Refined[A] = new JavaStream.UnsafeWrapper(super.parallelStream)
   }
 
   trait UnsafeProxy[A] extends util.AbstractCollection[A] with JavaIterable.Proxy[A] with Refined[A] {
@@ -27,8 +27,8 @@ object JavaCollection {
     //override def toArray[T](a: Array[T]): Array[T]
     override def containsAll(c: JavaCollection[_]): Boolean = delegate.containsAll(c)
 
-    override def spliterator: Spliterator.Refined[A] = new Spliterator.UnsafeUnmodifiable(delegate.spliterator)
-    override def stream: JavaStream.Refined[A] = new JavaStream.UnsafeUnmodifiable(delegate.stream)
-    override def parallelStream: JavaStream.Refined[A] = new JavaStream.UnsafeUnmodifiable(delegate.parallelStream)
+    override def spliterator: Spliterator.Refined[A] = new Spliterator.UnsafeWrapper(delegate.spliterator)
+    override def stream: JavaStream.Refined[A] = new JavaStream.UnsafeWrapper(delegate.stream)
+    override def parallelStream: JavaStream.Refined[A] = new JavaStream.UnsafeWrapper(delegate.parallelStream)
   }
 }

@@ -30,19 +30,19 @@ trait NonEmptyJavaStream[A] extends JavaStream.Refined[A] {
 object NonEmptyJavaStream {
   trait UnsafeProxy[A] extends JavaStream.UnsafeProxy[A] with NonEmptyJavaStream[A] {
     override def map[B](mapper: Function[_ >: A, _ <: B]): NonEmptyJavaStream[B] =
-      new NonEmptyJavaStream.UnsafeUnmodifiable(delegate.map(mapper))
+      new NonEmptyJavaStream.UnsafeWrapper(delegate.map(mapper))
     override def mapToInt(mapper: ToIntFunction[_ >: A]): NonEmptyJavaIntStream =
-      new NonEmptyJavaIntStream.UnsafeUnmodifiable(delegate.mapToInt(mapper))
+      new NonEmptyJavaIntStream.UnsafeWrapper(delegate.mapToInt(mapper))
     override def mapToLong(mapper: ToLongFunction[_ >: A]): NonEmptyJavaLongStream =
-      new NonEmptyJavaLongStream.UnsafeUnmodifiable(delegate.mapToLong(mapper))
+      new NonEmptyJavaLongStream.UnsafeWrapper(delegate.mapToLong(mapper))
     override def mapToDouble(mapper: ToDoubleFunction[_ >: A]): NonEmptyJavaDoubleStream =
-      new NonEmptyJavaDoubleStream.UnsafeUnmodifiable(delegate.mapToDouble(mapper))
-    override def distinct: NonEmptyJavaStream[A] = new NonEmptyJavaStream.UnsafeUnmodifiable(delegate.distinct)
-    override def sorted: NonEmptyJavaStream[A] = new NonEmptyJavaStream.UnsafeUnmodifiable(delegate.sorted)
+      new NonEmptyJavaDoubleStream.UnsafeWrapper(delegate.mapToDouble(mapper))
+    override def distinct: NonEmptyJavaStream[A] = new NonEmptyJavaStream.UnsafeWrapper(delegate.distinct)
+    override def sorted: NonEmptyJavaStream[A] = new NonEmptyJavaStream.UnsafeWrapper(delegate.sorted)
     override def sorted(comparator: Comparator[_ >: A]): NonEmptyJavaStream[A] =
-      new NonEmptyJavaStream.UnsafeUnmodifiable(delegate.sorted(comparator))
+      new NonEmptyJavaStream.UnsafeWrapper(delegate.sorted(comparator))
     override def peek(action: Consumer[_ >: A]): NonEmptyJavaStream[A] =
-      new NonEmptyJavaStream.UnsafeUnmodifiable(delegate.peek(action))
+      new NonEmptyJavaStream.UnsafeWrapper(delegate.peek(action))
     //override def toArray(): Array[AnyRef]
     //override def toArray[T](generator: IntFunction[Array[T]]): Array[T]
     override def reduce(accumulator: BinaryOperator[A]): Present[A] =
@@ -52,10 +52,10 @@ object NonEmptyJavaStream {
     override def count(): PositiveLong = PositiveLong.unsafeFromLong(delegate.count())
     override def findFirst(): Present[A] = Present.unsafeFromOptional(delegate.findFirst())
     override def findAny(): Present[A] = Present.unsafeFromOptional(delegate.findAny())
-    override def sequential(): NonEmptyJavaStream[A] = new NonEmptyJavaStream.UnsafeUnmodifiable(delegate.sequential())
-    override def parallel(): NonEmptyJavaStream[A] = new NonEmptyJavaStream.UnsafeUnmodifiable(delegate.parallel())
-    override def unordered(): NonEmptyJavaStream[A] = new NonEmptyJavaStream.UnsafeUnmodifiable(delegate.unordered())
+    override def sequential(): NonEmptyJavaStream[A] = new NonEmptyJavaStream.UnsafeWrapper(delegate.sequential())
+    override def parallel(): NonEmptyJavaStream[A] = new NonEmptyJavaStream.UnsafeWrapper(delegate.parallel())
+    override def unordered(): NonEmptyJavaStream[A] = new NonEmptyJavaStream.UnsafeWrapper(delegate.unordered())
   }
 
-  class UnsafeUnmodifiable[A](override protected val delegate: JavaStream[A]) extends UnsafeProxy[A]
+  class UnsafeWrapper[A](override protected val delegate: JavaStream[A]) extends UnsafeProxy[A]
 }

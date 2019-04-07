@@ -23,5 +23,5 @@ object JavaIterator {
     override def forEachRemaining(action: Consumer[_ >: A]): Unit = delegate.forEachRemaining(action)
   }
 
-  class Unmodifiable[A](override val delegate: JavaIterator[A]) extends Proxy[A]
+  class Wrapper[A](override val delegate: JavaIterator[A]) extends Proxy[A]
 }

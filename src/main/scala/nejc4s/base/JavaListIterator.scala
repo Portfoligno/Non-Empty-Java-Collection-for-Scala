@@ -21,5 +21,5 @@ object JavaListIterator {
     override def add(e: A): Unit = throw new UnsupportedOperationException("add")
   }
 
-  class UnsafeUnmodifiable[A](override protected val delegate: JavaListIterator[A]) extends UnsafeProxy[A]
+  class UnsafeWrapper[A](override protected val delegate: JavaListIterator[A]) extends UnsafeProxy[A]
 }

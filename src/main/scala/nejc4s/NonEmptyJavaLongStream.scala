@@ -31,17 +31,17 @@ trait NonEmptyJavaLongStream extends JavaLongStream.Refined {
 object NonEmptyJavaLongStream {
   trait UnsafeProxy extends JavaLongStream.UnsafeProxy with NonEmptyJavaLongStream {
     override def map(mapper: LongUnaryOperator): NonEmptyJavaLongStream =
-      new NonEmptyJavaLongStream.UnsafeUnmodifiable(delegate.map(mapper))
+      new NonEmptyJavaLongStream.UnsafeWrapper(delegate.map(mapper))
     override def mapToObj[B](mapper: LongFunction[_ <: B]): NonEmptyJavaStream[B] =
-      new NonEmptyJavaStream.UnsafeUnmodifiable(delegate.mapToObj(mapper))
+      new NonEmptyJavaStream.UnsafeWrapper(delegate.mapToObj(mapper))
     override def mapToInt(mapper: LongToIntFunction): NonEmptyJavaIntStream =
-      new NonEmptyJavaIntStream.UnsafeUnmodifiable(delegate.mapToInt(mapper))
+      new NonEmptyJavaIntStream.UnsafeWrapper(delegate.mapToInt(mapper))
     override def mapToDouble(mapper: LongToDoubleFunction): NonEmptyJavaDoubleStream =
-      new NonEmptyJavaDoubleStream.UnsafeUnmodifiable(delegate.mapToDouble(mapper))
-    override def distinct: NonEmptyJavaLongStream = new NonEmptyJavaLongStream.UnsafeUnmodifiable(delegate.distinct)
-    override def sorted: NonEmptyJavaLongStream = new NonEmptyJavaLongStream.UnsafeUnmodifiable(delegate.sorted)
+      new NonEmptyJavaDoubleStream.UnsafeWrapper(delegate.mapToDouble(mapper))
+    override def distinct: NonEmptyJavaLongStream = new NonEmptyJavaLongStream.UnsafeWrapper(delegate.distinct)
+    override def sorted: NonEmptyJavaLongStream = new NonEmptyJavaLongStream.UnsafeWrapper(delegate.sorted)
     override def peek(action: LongConsumer): NonEmptyJavaLongStream =
-      new NonEmptyJavaLongStream.UnsafeUnmodifiable(delegate.peek(action))
+      new NonEmptyJavaLongStream.UnsafeWrapper(delegate.peek(action))
     //override def toArray(): Array[Long]
     override def reduce(op: LongBinaryOperator): PresentLong = PresentLong.unsafeFromOptionalLong(delegate.reduce(op))
     override def min(): PresentLong = PresentLong.unsafeFromOptionalLong(delegate.min())
@@ -51,14 +51,14 @@ object NonEmptyJavaLongStream {
     override def findFirst(): PresentLong = PresentLong.unsafeFromOptionalLong(delegate.findFirst())
     override def findAny(): PresentLong = PresentLong.unsafeFromOptionalLong(delegate.findAny())
     override def asDoubleStream: NonEmptyJavaDoubleStream =
-      new NonEmptyJavaDoubleStream.UnsafeUnmodifiable(delegate.asDoubleStream())
-    override def boxed: NonEmptyJavaStream[lang.Long] = new NonEmptyJavaStream.UnsafeUnmodifiable(delegate.boxed)
+      new NonEmptyJavaDoubleStream.UnsafeWrapper(delegate.asDoubleStream())
+    override def boxed: NonEmptyJavaStream[lang.Long] = new NonEmptyJavaStream.UnsafeWrapper(delegate.boxed)
     override def sequential(): NonEmptyJavaLongStream =
-      new NonEmptyJavaLongStream.UnsafeUnmodifiable(delegate.sequential())
-    override def parallel(): NonEmptyJavaLongStream = new NonEmptyJavaLongStream.UnsafeUnmodifiable(delegate.parallel())
+      new NonEmptyJavaLongStream.UnsafeWrapper(delegate.sequential())
+    override def parallel(): NonEmptyJavaLongStream = new NonEmptyJavaLongStream.UnsafeWrapper(delegate.parallel())
     override def unordered(): NonEmptyJavaLongStream =
-      new NonEmptyJavaLongStream.UnsafeUnmodifiable(delegate.unordered())
+      new NonEmptyJavaLongStream.UnsafeWrapper(delegate.unordered())
   }
 
-  class UnsafeUnmodifiable(override protected val delegate: JavaLongStream) extends UnsafeProxy
+  class UnsafeWrapper(override protected val delegate: JavaLongStream) extends UnsafeProxy
 }

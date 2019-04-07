@@ -28,7 +28,7 @@ object Spliterator {
     override def delegate: Spliterator[A]
 
     override def tryAdvance(action: Consumer[_ >: A]): Boolean = delegate.tryAdvance(action)
-    override def trySplit(): Spliterator.Refined[A] = new Spliterator.UnsafeUnmodifiable(delegate.trySplit())
+    override def trySplit(): Spliterator.Refined[A] = new Spliterator.UnsafeWrapper(delegate.trySplit())
     override def estimateSize: NaturalLong = NaturalLong.unsafeFromLong(delegate.estimateSize)
     override def characteristics: Int = delegate.characteristics
 
@@ -38,7 +38,7 @@ object Spliterator {
     override def getComparator: Comparator[_ >: A] = delegate.getComparator
   }
 
-  class UnsafeUnmodifiable[A](
+  class UnsafeWrapper[A](
     override protected val delegate: Spliterator[A]
   ) extends UnsafeProxy[A] with Spliterator[A]
 
@@ -58,7 +58,7 @@ object Spliterator {
       protected
       override def delegate: OfInt
 
-      override def trySplit(): Spliterator.OfInt.Refined = new Spliterator.OfInt.UnsafeUnmodifiable(delegate.trySplit())
+      override def trySplit(): Spliterator.OfInt.Refined = new Spliterator.OfInt.UnsafeWrapper(delegate.trySplit())
       override def tryAdvance(action: IntConsumer): Boolean = delegate.tryAdvance(action)
 
       override def forEachRemaining(action: IntConsumer): Unit = delegate.forEachRemaining(action)
@@ -66,7 +66,7 @@ object Spliterator {
       override def forEachRemaining(action: Consumer[_ >: Integer]): Unit = delegate.forEachRemaining(action)
     }
 
-    class UnsafeUnmodifiable(override protected val delegate: OfInt) extends UnsafeProxy with Spliterator[Integer]
+    class UnsafeWrapper(override protected val delegate: OfInt) extends UnsafeProxy with Spliterator[Integer]
   }
 
 
@@ -85,7 +85,7 @@ object Spliterator {
       override def delegate: OfLong
 
       override def trySplit(): Spliterator.OfLong.Refined =
-        new Spliterator.OfLong.UnsafeUnmodifiable(delegate.trySplit())
+        new Spliterator.OfLong.UnsafeWrapper(delegate.trySplit())
       override def tryAdvance(action: LongConsumer): Boolean = delegate.tryAdvance(action)
 
       override def forEachRemaining(action: LongConsumer): Unit = delegate.forEachRemaining(action)
@@ -93,7 +93,7 @@ object Spliterator {
       override def forEachRemaining(action: Consumer[_ >: lang.Long]): Unit = delegate.forEachRemaining(action)
     }
 
-    class UnsafeUnmodifiable(override protected val delegate: OfLong) extends UnsafeProxy with Spliterator[lang.Long]
+    class UnsafeWrapper(override protected val delegate: OfLong) extends UnsafeProxy with Spliterator[lang.Long]
   }
 
 
@@ -112,7 +112,7 @@ object Spliterator {
       override def delegate: OfDouble
 
       override def trySplit(): Spliterator.OfDouble.Refined =
-        new Spliterator.OfDouble.UnsafeUnmodifiable(delegate.trySplit())
+        new Spliterator.OfDouble.UnsafeWrapper(delegate.trySplit())
       override def tryAdvance(action: DoubleConsumer): Boolean = delegate.tryAdvance(action)
 
       override def forEachRemaining(action: DoubleConsumer): Unit = delegate.forEachRemaining(action)
@@ -120,7 +120,7 @@ object Spliterator {
       override def forEachRemaining(action: Consumer[_ >: lang.Double]): Unit = delegate.forEachRemaining(action)
     }
 
-    class UnsafeUnmodifiable(
+    class UnsafeWrapper(
       override protected val delegate: OfDouble
     ) extends UnsafeProxy with Spliterator[lang.Double]
   }

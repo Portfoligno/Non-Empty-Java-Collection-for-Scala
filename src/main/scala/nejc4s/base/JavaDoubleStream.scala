@@ -49,24 +49,24 @@ object JavaDoubleStream {
     override def delegate: JavaDoubleStream
 
     override def filter(predicate: DoublePredicate): JavaDoubleStream.Refined =
-      new JavaDoubleStream.UnsafeUnmodifiable(delegate.filter(predicate))
+      new JavaDoubleStream.UnsafeWrapper(delegate.filter(predicate))
     override def map(mapper: DoubleUnaryOperator): JavaDoubleStream.Refined =
-      new JavaDoubleStream.UnsafeUnmodifiable(delegate.map(mapper))
+      new JavaDoubleStream.UnsafeWrapper(delegate.map(mapper))
     override def mapToObj[B](mapper: DoubleFunction[_ <: B]): JavaStream.Refined[B] =
-      new JavaStream.UnsafeUnmodifiable(delegate.mapToObj(mapper))
+      new JavaStream.UnsafeWrapper(delegate.mapToObj(mapper))
     override def mapToInt(mapper: DoubleToIntFunction): JavaIntStream.Refined =
-      new JavaIntStream.UnsafeUnmodifiable(delegate.mapToInt(mapper))
+      new JavaIntStream.UnsafeWrapper(delegate.mapToInt(mapper))
     override def mapToLong(mapper: DoubleToLongFunction): JavaLongStream.Refined =
-      new JavaLongStream.UnsafeUnmodifiable(delegate.mapToLong(mapper))
+      new JavaLongStream.UnsafeWrapper(delegate.mapToLong(mapper))
     override def flatMap(mapper: DoubleFunction[_ <: DoubleStream]): JavaDoubleStream.Refined =
-      new JavaDoubleStream.UnsafeUnmodifiable(delegate.flatMap(mapper))
-    override def distinct: JavaDoubleStream.Refined = new JavaDoubleStream.UnsafeUnmodifiable(delegate.distinct)
-    override def sorted: JavaDoubleStream.Refined = new JavaDoubleStream.UnsafeUnmodifiable(delegate.sorted)
+      new JavaDoubleStream.UnsafeWrapper(delegate.flatMap(mapper))
+    override def distinct: JavaDoubleStream.Refined = new JavaDoubleStream.UnsafeWrapper(delegate.distinct)
+    override def sorted: JavaDoubleStream.Refined = new JavaDoubleStream.UnsafeWrapper(delegate.sorted)
     override def peek(action: DoubleConsumer): JavaDoubleStream.Refined =
-      new JavaDoubleStream.UnsafeUnmodifiable(delegate.peek(action))
+      new JavaDoubleStream.UnsafeWrapper(delegate.peek(action))
     override def limit(maxSize: Long): JavaDoubleStream.Refined =
-      new JavaDoubleStream.UnsafeUnmodifiable(delegate.limit(maxSize))
-    override def skip(n: Long): JavaDoubleStream.Refined = new JavaDoubleStream.UnsafeUnmodifiable(delegate.skip(n))
+      new JavaDoubleStream.UnsafeWrapper(delegate.limit(maxSize))
+    override def skip(n: Long): JavaDoubleStream.Refined = new JavaDoubleStream.UnsafeWrapper(delegate.skip(n))
     override def forEach(action: DoubleConsumer): Unit = delegate.forEach(action)
     override def forEachOrdered(action: DoubleConsumer): Unit = delegate.forEachOrdered(action)
     override def toArray(): Array[Double] = delegate.toArray()
@@ -85,15 +85,15 @@ object JavaDoubleStream {
     override def noneMatch(predicate: DoublePredicate): Boolean = delegate.noneMatch(predicate)
     override def findFirst(): OptionalDouble = delegate.findFirst()
     override def findAny(): OptionalDouble = delegate.findAny()
-    override def boxed: JavaStream.Refined[lang.Double] = new JavaStream.UnsafeUnmodifiable(delegate.boxed)
-    override def sequential(): JavaDoubleStream.Refined = new JavaDoubleStream.UnsafeUnmodifiable(delegate.sequential())
-    override def parallel(): JavaDoubleStream.Refined = new JavaDoubleStream.UnsafeUnmodifiable(delegate.parallel())
+    override def boxed: JavaStream.Refined[lang.Double] = new JavaStream.UnsafeWrapper(delegate.boxed)
+    override def sequential(): JavaDoubleStream.Refined = new JavaDoubleStream.UnsafeWrapper(delegate.sequential())
+    override def parallel(): JavaDoubleStream.Refined = new JavaDoubleStream.UnsafeWrapper(delegate.parallel())
     override def iterator(): JavaPrimitiveIterator.OfDouble = delegate.iterator()
     override def spliterator(): Spliterator.OfDouble.Refined =
-      new Spliterator.OfDouble.UnsafeUnmodifiable(delegate.spliterator())
+      new Spliterator.OfDouble.UnsafeWrapper(delegate.spliterator())
 
-    override def unordered(): JavaDoubleStream.Refined = new JavaDoubleStream.UnsafeUnmodifiable(delegate.unordered())
+    override def unordered(): JavaDoubleStream.Refined = new JavaDoubleStream.UnsafeWrapper(delegate.unordered())
   }
 
-  class UnsafeUnmodifiable(override protected val delegate: JavaDoubleStream) extends UnsafeProxy
+  class UnsafeWrapper(override protected val delegate: JavaDoubleStream) extends UnsafeProxy
 }

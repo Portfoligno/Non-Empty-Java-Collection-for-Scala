@@ -49,33 +49,33 @@ object JavaStream {
     override def delegate: JavaStream[A]
 
     override def filter(predicate: Predicate[_ >: A]): JavaStream.Refined[A] =
-      new JavaStream.UnsafeUnmodifiable(delegate.filter(predicate))
+      new JavaStream.UnsafeWrapper(delegate.filter(predicate))
     override def map[B](mapper: Function[_ >: A, _ <: B]): JavaStream.Refined[B] =
-      new JavaStream.UnsafeUnmodifiable(delegate.map(mapper))
+      new JavaStream.UnsafeWrapper(delegate.map(mapper))
     override def mapToInt(mapper: ToIntFunction[_ >: A]): JavaIntStream.Refined =
-      new JavaIntStream.UnsafeUnmodifiable(delegate.mapToInt(mapper))
+      new JavaIntStream.UnsafeWrapper(delegate.mapToInt(mapper))
     override def mapToLong(mapper: ToLongFunction[_ >: A]): JavaLongStream.Refined =
-      new JavaLongStream.UnsafeUnmodifiable(delegate.mapToLong(mapper))
+      new JavaLongStream.UnsafeWrapper(delegate.mapToLong(mapper))
     override def mapToDouble(mapper: ToDoubleFunction[_ >: A]): JavaDoubleStream.Refined =
-      new JavaDoubleStream.UnsafeUnmodifiable(delegate.mapToDouble(mapper))
+      new JavaDoubleStream.UnsafeWrapper(delegate.mapToDouble(mapper))
     override def flatMap[B](mapper: Function[_ >: A, _ <: Stream[_ <: B]]): JavaStream.Refined[B] =
-      new JavaStream.UnsafeUnmodifiable(delegate.flatMap[B](mapper))
+      new JavaStream.UnsafeWrapper(delegate.flatMap[B](mapper))
     override def flatMapToInt(mapper: Function[_ >: A, _ <: IntStream]): JavaIntStream.Refined =
-      new JavaIntStream.UnsafeUnmodifiable(delegate.flatMapToInt(mapper))
+      new JavaIntStream.UnsafeWrapper(delegate.flatMapToInt(mapper))
     override def flatMapToLong(mapper: Function[_ >: A, _ <: LongStream]): JavaLongStream.Refined =
-      new JavaLongStream.UnsafeUnmodifiable(delegate.flatMapToLong(mapper))
+      new JavaLongStream.UnsafeWrapper(delegate.flatMapToLong(mapper))
     override def flatMapToDouble(mapper: Function[_ >: A, _ <: DoubleStream]): JavaDoubleStream.Refined =
-      new JavaDoubleStream.UnsafeUnmodifiable(delegate.flatMapToDouble(mapper))
-    override def distinct: JavaStream.Refined[A] = new JavaStream.UnsafeUnmodifiable(delegate.distinct)
-    override def sorted: JavaStream.Refined[A] = new JavaStream.UnsafeUnmodifiable(delegate.sorted)
+      new JavaDoubleStream.UnsafeWrapper(delegate.flatMapToDouble(mapper))
+    override def distinct: JavaStream.Refined[A] = new JavaStream.UnsafeWrapper(delegate.distinct)
+    override def sorted: JavaStream.Refined[A] = new JavaStream.UnsafeWrapper(delegate.sorted)
     override def sorted(comparator: Comparator[_ >: A]): JavaStream.Refined[A] =
-      new JavaStream.UnsafeUnmodifiable(delegate.sorted(comparator))
+      new JavaStream.UnsafeWrapper(delegate.sorted(comparator))
     override def peek(action: Consumer[_ >: A]): JavaStream.Refined[A] =
-      new JavaStream.UnsafeUnmodifiable(delegate.peek(action))
+      new JavaStream.UnsafeWrapper(delegate.peek(action))
     override def limit(maxSize: Long): JavaStream.Refined[A] =
-      new JavaStream.UnsafeUnmodifiable(delegate.limit(maxSize))
+      new JavaStream.UnsafeWrapper(delegate.limit(maxSize))
     override def skip(n: Long): JavaStream.Refined[A] =
-      new JavaStream.UnsafeUnmodifiable(delegate.skip(n))
+      new JavaStream.UnsafeWrapper(delegate.skip(n))
     override def forEach(action: Consumer[_ >: A]): Unit = delegate.forEach(action)
     override def forEachOrdered(action: Consumer[_ >: A]): Unit = delegate.forEachOrdered(action)
     override def toArray(): Array[AnyRef] = delegate.toArray()
@@ -96,10 +96,10 @@ object JavaStream {
     override def findFirst(): Optional[A] = delegate.findFirst()
     override def findAny(): Optional[A] = delegate.findAny()
 
-    override def sequential(): JavaStream.Refined[A] = new JavaStream.UnsafeUnmodifiable(delegate.sequential())
-    override def parallel(): JavaStream.Refined[A] = new JavaStream.UnsafeUnmodifiable(delegate.parallel())
-    override def unordered(): JavaStream.Refined[A] = new JavaStream.UnsafeUnmodifiable(delegate.unordered())
+    override def sequential(): JavaStream.Refined[A] = new JavaStream.UnsafeWrapper(delegate.sequential())
+    override def parallel(): JavaStream.Refined[A] = new JavaStream.UnsafeWrapper(delegate.parallel())
+    override def unordered(): JavaStream.Refined[A] = new JavaStream.UnsafeWrapper(delegate.unordered())
   }
 
-  class UnsafeUnmodifiable[A](override protected val delegate: JavaStream[A]) extends UnsafeProxy[A]
+  class UnsafeWrapper[A](override protected val delegate: JavaStream[A]) extends UnsafeProxy[A]
 }

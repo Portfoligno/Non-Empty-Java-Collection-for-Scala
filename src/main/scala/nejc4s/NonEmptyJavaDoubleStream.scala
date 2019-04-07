@@ -30,17 +30,17 @@ trait NonEmptyJavaDoubleStream extends JavaDoubleStream.Refined {
 object NonEmptyJavaDoubleStream {
   trait UnsafeProxy extends JavaDoubleStream.UnsafeProxy with NonEmptyJavaDoubleStream {
     override def map(mapper: DoubleUnaryOperator): NonEmptyJavaDoubleStream =
-      new NonEmptyJavaDoubleStream.UnsafeUnmodifiable(delegate.map(mapper))
+      new NonEmptyJavaDoubleStream.UnsafeWrapper(delegate.map(mapper))
     override def mapToObj[B](mapper: DoubleFunction[_ <: B]): NonEmptyJavaStream[B] =
-      new NonEmptyJavaStream.UnsafeUnmodifiable(delegate.mapToObj(mapper))
+      new NonEmptyJavaStream.UnsafeWrapper(delegate.mapToObj(mapper))
     override def mapToInt(mapper: DoubleToIntFunction): NonEmptyJavaIntStream =
-      new NonEmptyJavaIntStream.UnsafeUnmodifiable(delegate.mapToInt(mapper))
+      new NonEmptyJavaIntStream.UnsafeWrapper(delegate.mapToInt(mapper))
     override def mapToLong(mapper: DoubleToLongFunction): NonEmptyJavaLongStream =
-      new NonEmptyJavaLongStream.UnsafeUnmodifiable(delegate.mapToLong(mapper))
-    override def distinct: NonEmptyJavaDoubleStream = new NonEmptyJavaDoubleStream.UnsafeUnmodifiable(delegate.distinct)
-    override def sorted: NonEmptyJavaDoubleStream = new NonEmptyJavaDoubleStream.UnsafeUnmodifiable(delegate.sorted)
+      new NonEmptyJavaLongStream.UnsafeWrapper(delegate.mapToLong(mapper))
+    override def distinct: NonEmptyJavaDoubleStream = new NonEmptyJavaDoubleStream.UnsafeWrapper(delegate.distinct)
+    override def sorted: NonEmptyJavaDoubleStream = new NonEmptyJavaDoubleStream.UnsafeWrapper(delegate.sorted)
     override def peek(action: DoubleConsumer): NonEmptyJavaDoubleStream =
-      new NonEmptyJavaDoubleStream.UnsafeUnmodifiable(delegate.peek(action))
+      new NonEmptyJavaDoubleStream.UnsafeWrapper(delegate.peek(action))
     //override def toArray(): Array[Double]
     override def reduce(op: DoubleBinaryOperator): PresentDouble =
       PresentDouble.unsafeFromOptionalDouble(delegate.reduce(op))
@@ -50,14 +50,14 @@ object NonEmptyJavaDoubleStream {
     override def average(): PresentDouble = PresentDouble.unsafeFromOptionalDouble(delegate.average())
     override def findFirst(): PresentDouble = PresentDouble.unsafeFromOptionalDouble(delegate.findFirst())
     override def findAny(): PresentDouble = PresentDouble.unsafeFromOptionalDouble(delegate.findAny())
-    override def boxed: NonEmptyJavaStream[lang.Double] = new NonEmptyJavaStream.UnsafeUnmodifiable(delegate.boxed)
+    override def boxed: NonEmptyJavaStream[lang.Double] = new NonEmptyJavaStream.UnsafeWrapper(delegate.boxed)
     override def sequential(): NonEmptyJavaDoubleStream =
-      new NonEmptyJavaDoubleStream.UnsafeUnmodifiable(delegate.sequential())
+      new NonEmptyJavaDoubleStream.UnsafeWrapper(delegate.sequential())
     override def parallel(): NonEmptyJavaDoubleStream =
-      new NonEmptyJavaDoubleStream.UnsafeUnmodifiable(delegate.parallel())
+      new NonEmptyJavaDoubleStream.UnsafeWrapper(delegate.parallel())
     override def unordered(): NonEmptyJavaDoubleStream =
-      new NonEmptyJavaDoubleStream.UnsafeUnmodifiable(delegate.unordered())
+      new NonEmptyJavaDoubleStream.UnsafeWrapper(delegate.unordered())
   }
 
-  class UnsafeUnmodifiable(override protected val delegate: JavaDoubleStream) extends UnsafeProxy
+  class UnsafeWrapper(override protected val delegate: JavaDoubleStream) extends UnsafeProxy
 }
