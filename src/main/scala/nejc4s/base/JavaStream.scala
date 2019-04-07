@@ -44,7 +44,7 @@ object JavaStream {
     override def unordered(): JavaStream.Refined[A]
   }
 
-  trait UnsafeProxy[A] extends AbstractJavaStream[A] with JavaBaseStream.UnsafeProxy[A, JavaStream[A]] with Refined[A] {
+  trait UnsafeProxy[A] extends JavaStreamAdapter[A] with JavaBaseStream.UnsafeProxy[A, JavaStream[A]] with Refined[A] {
     protected
     override def delegate: JavaStream[A]
 
