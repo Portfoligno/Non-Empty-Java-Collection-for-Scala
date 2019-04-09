@@ -49,7 +49,7 @@ package object base {
       }
 
 
-    def apply: AbsentInt =
+    def apply(): AbsentInt =
       Optional.empty().asInstanceOf[AbsentInt]
 
     def unapply(a: Optional[_]): Boolean =
@@ -68,7 +68,7 @@ package object base {
       }
 
 
-    def apply: AbsentLong =
+    def apply(): AbsentLong =
       Optional.empty().asInstanceOf[AbsentLong]
 
     def unapply(a: Optional[_]): Boolean =
@@ -87,7 +87,7 @@ package object base {
       }
 
 
-    def apply: AbsentDouble =
+    def apply(): AbsentDouble =
       Optional.empty().asInstanceOf[AbsentDouble]
 
     def unapply(a: Optional[_]): Boolean =
@@ -108,7 +108,7 @@ package object base {
       }
 
 
-    def apply[A]: Absent[A] =
+    def apply[A](): Absent[A] =
       Optional.empty().asInstanceOf[Absent[A]]
 
     def unapply(a: Optional[_]): Boolean =
