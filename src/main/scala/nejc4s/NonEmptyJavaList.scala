@@ -23,7 +23,7 @@ object NonEmptyJavaList {
 
   import scala.collection.JavaConverters._
 
-  def apply[A](x: A, xs: A*): JavaList.Refined[A] =
+  def apply[A](x: A, xs: A*): NonEmptyJavaList[A] =
     new UnsafeWrapper((x +: xs.view).asJava)
 
   def unapplySeq[A](xs: JavaList[A]): Option[(A, Seq[A])] =
