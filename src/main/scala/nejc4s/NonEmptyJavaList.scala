@@ -27,10 +27,16 @@ object NonEmptyJavaList {
     new UnsafeWrapper((x +: xs.view).asJava)
 
   def unapplySeq[A](xs: JavaList[A]): Option[(A, Seq[A])] =
-    try {
-      Some(xs.get(0) -> xs.asScala.view.drop(1))
-    } catch {
-      case _: IndexOutOfBoundsException =>
-        None
+    xs match {
+      case _: NonEmptyJavaList[A] =>
+        Some(xs.iterator.next() -> xs.asScala.view.drop(1))
+
+      case _ =>
+        try {
+          Some(xs.get(0) -> xs.asScala.view.drop(1))
+        } catch {
+          case _: IndexOutOfBoundsException =>
+            None
+        }
     }
 }
