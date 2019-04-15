@@ -128,7 +128,7 @@ package object base {
 
 
     def apply(a: Int): PresentInt =
-      Optional.of(a).asInstanceOf[PresentInt]
+      OptionalInt.of(a).asInstanceOf[PresentInt]
 
     def unapply(a: OptionalInt): Option[Int] =
       if (a.isPresent) Some(a.getAsInt) else None
@@ -147,7 +147,7 @@ package object base {
 
 
     def apply(a: Long): PresentLong =
-      Optional.of(a).asInstanceOf[PresentLong]
+      OptionalLong.of(a).asInstanceOf[PresentLong]
 
     def unapply(a: OptionalLong): Option[Long] =
       if (a.isPresent) Some(a.getAsLong) else None
@@ -166,7 +166,7 @@ package object base {
 
 
     def apply(a: Double): PresentDouble =
-      Optional.of(a).asInstanceOf[PresentDouble]
+      OptionalDouble.of(a).asInstanceOf[PresentDouble]
 
     def unapply(a: OptionalDouble): Option[Double] =
       if (a.isPresent) Some(a.getAsDouble) else None
