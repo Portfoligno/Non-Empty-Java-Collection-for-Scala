@@ -2,6 +2,8 @@ package nejc4s
 
 import java.{lang, util}
 
+import shapeless.Witness
+
 package object base {
   type AutoCloseable = lang.AutoCloseable
   type Optional[A] = util.Optional[A]
@@ -23,18 +25,14 @@ package object base {
 
 
 
-  type False <: Boolean with FalseTag
+  type False = Witness.`false`.T
 
-  private[base] trait FalseTag extends Any
-
-  val False: False = false.asInstanceOf[False]
+  val False: False = false
 
 
-  type True <: Boolean with TrueTag
+  type True = Witness.`true`.T
 
-  private[base] trait TrueTag extends Any
-
-  val True: True = true.asInstanceOf[True]
+  val True: True = true
 
 
 
