@@ -1,6 +1,6 @@
 package nejc4s
 
-import java.util.{Optional, OptionalDouble, OptionalInt, OptionalLong}
+import java.util.{OptionalDouble, OptionalInt, OptionalLong}
 import java.{lang, util}
 
 package object base {
@@ -50,9 +50,9 @@ package object base {
 
 
     def apply(): AbsentInt =
-      Optional.empty().asInstanceOf[AbsentInt]
+      util.OptionalInt.empty.asInstanceOf[AbsentInt]
 
-    def unapply(a: Optional[_]): Boolean =
+    def unapply(a: OptionalInt): Boolean =
       !a.isPresent
   }
 
@@ -69,9 +69,9 @@ package object base {
 
 
     def apply(): AbsentLong =
-      Optional.empty().asInstanceOf[AbsentLong]
+      util.OptionalLong.empty.asInstanceOf[AbsentLong]
 
-    def unapply(a: Optional[_]): Boolean =
+    def unapply(a: OptionalLong): Boolean =
       !a.isPresent
   }
 
@@ -88,9 +88,9 @@ package object base {
 
 
     def apply(): AbsentDouble =
-      Optional.empty().asInstanceOf[AbsentDouble]
+      util.OptionalDouble.empty.asInstanceOf[AbsentDouble]
 
-    def unapply(a: Optional[_]): Boolean =
+    def unapply(a: OptionalDouble): Boolean =
       !a.isPresent
   }
 
@@ -109,7 +109,7 @@ package object base {
 
 
     def apply[A](): Absent[A] =
-      Optional.empty().asInstanceOf[Absent[A]]
+      util.Optional.empty.asInstanceOf[Absent[A]]
 
     def unapply(a: Optional[_]): Boolean =
       !a.isPresent
@@ -128,7 +128,7 @@ package object base {
 
 
     def apply(a: Int): PresentInt =
-      OptionalInt.of(a).asInstanceOf[PresentInt]
+      util.OptionalInt.of(a).asInstanceOf[PresentInt]
 
     def unapply(a: OptionalInt): Option[Int] =
       if (a.isPresent) Some(a.getAsInt) else None
@@ -147,7 +147,7 @@ package object base {
 
 
     def apply(a: Long): PresentLong =
-      OptionalLong.of(a).asInstanceOf[PresentLong]
+      util.OptionalLong.of(a).asInstanceOf[PresentLong]
 
     def unapply(a: OptionalLong): Option[Long] =
       if (a.isPresent) Some(a.getAsLong) else None
@@ -166,7 +166,7 @@ package object base {
 
 
     def apply(a: Double): PresentDouble =
-      OptionalDouble.of(a).asInstanceOf[PresentDouble]
+      util.OptionalDouble.of(a).asInstanceOf[PresentDouble]
 
     def unapply(a: OptionalDouble): Option[Double] =
       if (a.isPresent) Some(a.getAsDouble) else None
@@ -187,7 +187,7 @@ package object base {
 
 
     def apply[A](a: A): Present[A] =
-      Optional.of(a).asInstanceOf[Present[A]]
+      util.Optional.of(a).asInstanceOf[Present[A]]
 
     def unapply[A](a: Optional[A]): Option[A] =
       if (a.isPresent) Some(a.get) else None
