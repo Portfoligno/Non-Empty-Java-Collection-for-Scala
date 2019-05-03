@@ -103,10 +103,12 @@ class OptionalSyntaxSpec extends FreeSpec {
       optional.ifPresent(_.dummy)
     }
     "`collect` should work" in {
-      optional.collect {
-        case t: TagInstance.type =>
-          t.productArity
-      }
+      optional
+        .collect {
+          case t: TagInstance.type =>
+            t.productIterator
+        }
+        .ifPresent(_.hasNext)
     }
 
     "`toOption` should work" in {
