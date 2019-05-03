@@ -66,6 +66,7 @@ trait BaseOptionalOps[F[_], A, A0] extends Any {
   def fromOption[B <: A0](option: Option[B]): F[B]
 
 
+  protected
   def covary[B >: A]: F[B] =
     optional.asInstanceOf[F[B]]
 
@@ -126,6 +127,10 @@ final class OptionalOps[A](
   def fromOption[B](option: Option[B]): Optional[B] =
     Optional.fromOption(option)
 
+
+  override
+  def covary[B >: A]: Optional[B] =
+    super.covary
 
   def orElseNull[A1 >: A](implicit ev: Null <:< A1): A1 =
     covary[A1].orElse(ev(null))

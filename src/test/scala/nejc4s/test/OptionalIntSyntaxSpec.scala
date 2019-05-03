@@ -22,10 +22,6 @@ class OptionalIntSyntaxSpec extends FreeSpec {
     }
   }
   "Optional" - {
-    "`covary` should be adapting type parameter" in {
-      optional.covary: OptionalInt
-    }
-
     "`isAbsent` should work" in {
       optional.isAbsent
     }

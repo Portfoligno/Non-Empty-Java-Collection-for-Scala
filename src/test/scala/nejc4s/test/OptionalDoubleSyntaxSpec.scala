@@ -22,10 +22,6 @@ class OptionalDoubleSyntaxSpec extends FreeSpec {
     }
   }
   "Optional" - {
-    "`covary` should be adapting type parameter" in {
-      optional.covary: OptionalDouble
-    }
-
     "`isAbsent` should work" in {
       optional.isAbsent
     }

@@ -22,10 +22,6 @@ class OptionalLongSyntaxSpec extends FreeSpec {
     }
   }
   "Optional" - {
-    "`covary` should be adapting type parameter" in {
-      optional.covary: OptionalLong
-    }
-
     "`isAbsent` should work" in {
       optional.isAbsent
     }
