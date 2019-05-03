@@ -52,6 +52,9 @@ class OptionalOps[A](private val optional: Optional[A]) extends AnyVal {
   def forall(p: A => Boolean): Boolean =
     fold(true)(p)
 
+  def collect[B](pf: PartialFunction[A, B]): Optional[B] =
+    flatTransform(pf.lift.andThen(Optional.fromOption))
+
   def toOption[B >: A]: Option[B] =
     Present.unapply(optional)
 }
