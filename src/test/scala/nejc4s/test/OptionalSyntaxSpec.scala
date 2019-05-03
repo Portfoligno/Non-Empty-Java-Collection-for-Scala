@@ -59,11 +59,11 @@ class OptionalSyntaxSpec extends FreeSpec {
 
     "`map` should not work" in {
       illTyped("""
-        optional.map(_.dummy).transform(_.value)
+        optional.map(_.dummy).ifPresent(_.value)
       """)
     }
     "`transform` should work" in {
-      optional.transform(_.dummy).transform(_.value)
+      optional.transform(_.dummy).ifPresent(_.value.toString)
     }
 
     "`fold` should work" in {
@@ -72,21 +72,21 @@ class OptionalSyntaxSpec extends FreeSpec {
 
     "`flatMap` should not work" in {
       illTyped("""
-        optional.flatMap(_ => present).transform(_.dummy)
+        optional.flatMap(_ => present).ifPresent(_.dummy)
       """)
     }
     "`flatTransform` should work" in {
-      optional.flatTransform(_ => present).transform(_.dummy)
+      optional.flatTransform(_ => present).ifPresent(_.dummy)
     }
     "`flatten` should work" in {
-      optional.transform(_ => present).flatten.transform(_.dummy)
+      optional.transform(_ => present).flatten.ifPresent(_.dummy)
     }
 
     "`filter` should work" in {
-      optional.filter(_.dummy.value).transform(_.dummy)
+      optional.filter(_.dummy.value).ifPresent(_.dummy)
     }
     "`filterNot` should work" in {
-      optional.filterNot(_.dummy.value).transform(_.dummy)
+      optional.filterNot(_.dummy.value).ifPresent(_.dummy)
     }
 
     "`contains` should work" in {
