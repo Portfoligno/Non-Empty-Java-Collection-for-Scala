@@ -1,9 +1,9 @@
 package nejc4s.base
 
 import java.lang
+import java.util.DoubleSummaryStatistics
 import java.util.function._
 import java.util.stream.DoubleStream
-import java.util.{DoubleSummaryStatistics, OptionalDouble}
 
 object JavaDoubleStream {
   trait Refined extends JavaDoubleStream with JavaBaseStream.Refined[lang.Double, JavaDoubleStream] {

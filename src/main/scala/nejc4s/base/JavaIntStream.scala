@@ -1,8 +1,8 @@
 package nejc4s.base
 
+import java.util.IntSummaryStatistics
 import java.util.function._
 import java.util.stream.IntStream
-import java.util.{IntSummaryStatistics, OptionalDouble, OptionalInt}
 
 object JavaIntStream {
   trait Refined extends JavaIntStream with JavaBaseStream.Refined[Integer, JavaIntStream] {

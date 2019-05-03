@@ -1,9 +1,9 @@
 package nejc4s.base
 
 import java.lang
+import java.util.LongSummaryStatistics
 import java.util.function._
 import java.util.stream.LongStream
-import java.util.{LongSummaryStatistics, OptionalDouble, OptionalLong}
 
 object JavaLongStream {
   trait Refined extends JavaLongStream with JavaBaseStream.Refined[lang.Long, JavaLongStream] {
