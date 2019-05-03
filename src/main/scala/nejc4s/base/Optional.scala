@@ -9,3 +9,8 @@ object Optional {
   def fromOption[A](option: Option[A]): Optional[A] =
     option.fold(Absent(): Optional[A])(Present(_))
 }
+
+object OptionalInt {
+  def fromOption[A](option: Option[Int]): OptionalInt =
+    option.fold(AbsentInt(): OptionalInt)(PresentInt(_))
+}
