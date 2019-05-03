@@ -1,6 +1,6 @@
 package nejc4s.syntax
 
-import nejc4s.base.{AbsentInt, Optional, OptionalInt, Present, PresentInt}
+import nejc4s.base.{AbsentInt, AbsentLong, Optional, OptionalInt, OptionalLong, Present, PresentInt, PresentLong}
 
 trait OptionalSyntax {
   implicit def toPresentOps[A](present: Present[A]): PresentOps[A] =
@@ -9,12 +9,19 @@ trait OptionalSyntax {
   implicit def toPresentIntOps[A](present: PresentInt): PresentIntOps =
     new PresentIntOps(present)
 
+  implicit def toPresentLongOps[A](present: PresentLong): PresentLongOps =
+    new PresentLongOps(present)
+
   implicit def toOptionalOps[A](optional: Optional[A]): OptionalOps[A] =
     new OptionalOps(optional)
 
   implicit def toOptionalIntOps[A](optional: OptionalInt): OptionalIntOps =
     new OptionalIntOps(optional)
+
+  implicit def toOptionalLongOps[A](optional: OptionalLong): OptionalLongOps =
+    new OptionalLongOps(optional)
 }
+
 
 class PresentOps[A](private val present: Present[A]) extends AnyVal {
   def value: A =
@@ -24,6 +31,11 @@ class PresentOps[A](private val present: Present[A]) extends AnyVal {
 class PresentIntOps(private val present: PresentInt) extends AnyVal {
   def value: Int =
     present.getAsInt
+}
+
+class PresentLongOps(private val present: PresentLong) extends AnyVal {
+  def value: Long =
+    present.getAsLong
 }
 
 
@@ -163,4 +175,45 @@ final class OptionalIntOps(
   override
   def toOption[B >: Int]: Option[B] =
     PresentInt.unapply(optional)
+}
+
+final class OptionalLongOps(
+  protected
+  override
+  val optional: OptionalLong
+) extends AnyVal with BaseOptionalOps[OptionalLong_, Long, Long] {
+  protected
+  override
+  def isPresent: Boolean =
+    optional.isPresent
+
+  protected
+  override
+  def get: Long =
+    optional.getAsLong
+
+  protected
+  override
+  def fromOption[B <: Long](option: Option[B]): OptionalLong =
+    OptionalLong.fromOption(option)
+
+
+  override
+  def transform[B <: Long](f: Long => B): OptionalLong =
+    fold(AbsentLong(): OptionalLong)(f.andThen(PresentLong(_)))
+
+  override
+  def flatTransform[B <: Long](f: Long => OptionalLong): OptionalLong =
+    fold(AbsentLong(): OptionalLong)(f)
+
+  def filter(p: Long => Boolean): OptionalLong =
+    if (!exists(p)) AbsentLong() else optional
+
+  override
+  def filterNot(p: Long => Boolean): OptionalLong =
+    if (forall(p)) AbsentLong() else optional
+
+  override
+  def toOption[B >: Long]: Option[B] =
+    PresentLong.unapply(optional)
 }
