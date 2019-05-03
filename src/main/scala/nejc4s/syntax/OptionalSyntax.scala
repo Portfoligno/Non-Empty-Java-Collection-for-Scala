@@ -55,6 +55,9 @@ class OptionalOps[A](private val optional: Optional[A]) extends AnyVal {
   def collect[B](pf: PartialFunction[A, B]): Optional[B] =
     flatTransform(pf.lift.andThen(Optional.fromOption))
 
+  def orElseWith[B >: A](alternative: => Optional[B]): Optional[B] =
+    if (!optional.isPresent) alternative else covary
+
   def toOption[B >: A]: Option[B] =
     Present.unapply(optional)
 }
