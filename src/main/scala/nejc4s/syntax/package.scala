@@ -1,6 +1,6 @@
 package nejc4s
 
-import nejc4s.base.{OptionalInt, OptionalLong}
+import nejc4s.base.{OptionalDouble, OptionalInt, OptionalLong}
 
 package object syntax {
   object optional extends OptionalSyntax
@@ -11,4 +11,7 @@ package object syntax {
 
   private[syntax]
   type OptionalLong_[X] = OptionalLong
+
+  private[syntax]
+  type OptionalDouble_[X] = OptionalDouble
 }

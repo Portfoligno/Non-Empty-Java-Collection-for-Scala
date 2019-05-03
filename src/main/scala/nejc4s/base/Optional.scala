@@ -19,3 +19,8 @@ object OptionalLong {
   def fromOption[A](option: Option[Long]): OptionalLong =
     option.fold(AbsentLong(): OptionalLong)(PresentLong(_))
 }
+
+object OptionalDouble {
+  def fromOption[A](option: Option[Double]): OptionalDouble =
+    option.fold(AbsentDouble(): OptionalDouble)(PresentDouble(_))
+}

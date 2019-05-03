@@ -1,25 +1,32 @@
 package nejc4s.syntax
 
-import nejc4s.base.{AbsentInt, AbsentLong, Optional, OptionalInt, OptionalLong, Present, PresentInt, PresentLong}
+import nejc4s.base._
 
 trait OptionalSyntax {
   implicit def toPresentOps[A](present: Present[A]): PresentOps[A] =
     new PresentOps(present)
 
-  implicit def toPresentIntOps[A](present: PresentInt): PresentIntOps =
+  implicit def toPresentIntOps(present: PresentInt): PresentIntOps =
     new PresentIntOps(present)
 
-  implicit def toPresentLongOps[A](present: PresentLong): PresentLongOps =
+  implicit def toPresentLongOps(present: PresentLong): PresentLongOps =
     new PresentLongOps(present)
+
+  implicit def toPresentDoubleOps(present: PresentDouble): PresentDoubleOps =
+    new PresentDoubleOps(present)
+
 
   implicit def toOptionalOps[A](optional: Optional[A]): OptionalOps[A] =
     new OptionalOps(optional)
 
-  implicit def toOptionalIntOps[A](optional: OptionalInt): OptionalIntOps =
+  implicit def toOptionalIntOps(optional: OptionalInt): OptionalIntOps =
     new OptionalIntOps(optional)
 
-  implicit def toOptionalLongOps[A](optional: OptionalLong): OptionalLongOps =
+  implicit def toOptionalLongOps(optional: OptionalLong): OptionalLongOps =
     new OptionalLongOps(optional)
+
+  implicit def toOptionalDoubleOps(optional: OptionalDouble): OptionalDoubleOps =
+    new OptionalDoubleOps(optional)
 }
 
 
@@ -36,6 +43,11 @@ class PresentIntOps(private val present: PresentInt) extends AnyVal {
 class PresentLongOps(private val present: PresentLong) extends AnyVal {
   def value: Long =
     present.getAsLong
+}
+
+class PresentDoubleOps(private val present: PresentDouble) extends AnyVal {
+  def value: Double =
+    present.getAsDouble
 }
 
 
@@ -159,7 +171,7 @@ final class OptionalIntOps(
 
   override
   def transform[B <: Int](f: Int => B): OptionalInt =
-    fold(AbsentInt(): OptionalInt)(f.andThen(PresentInt(_)))
+    flatTransform(f.andThen(PresentInt(_)))
 
   override
   def flatTransform[B <: Int](f: Int => OptionalInt): OptionalInt =
@@ -200,7 +212,7 @@ final class OptionalLongOps(
 
   override
   def transform[B <: Long](f: Long => B): OptionalLong =
-    fold(AbsentLong(): OptionalLong)(f.andThen(PresentLong(_)))
+    flatTransform(f.andThen(PresentLong(_)))
 
   override
   def flatTransform[B <: Long](f: Long => OptionalLong): OptionalLong =
@@ -216,4 +228,45 @@ final class OptionalLongOps(
   override
   def toOption[B >: Long]: Option[B] =
     PresentLong.unapply(optional)
+}
+
+final class OptionalDoubleOps(
+  protected
+  override
+  val optional: OptionalDouble
+) extends AnyVal with BaseOptionalOps[OptionalDouble_, Double, Double] {
+  protected
+  override
+  def isPresent: Boolean =
+    optional.isPresent
+
+  protected
+  override
+  def get: Double =
+    optional.getAsDouble
+
+  protected
+  override
+  def fromOption[B <: Double](option: Option[B]): OptionalDouble =
+    OptionalDouble.fromOption(option)
+
+
+  override
+  def transform[B <: Double](f: Double => B): OptionalDouble =
+    flatTransform(f.andThen(PresentDouble(_)))
+
+  override
+  def flatTransform[B <: Double](f: Double => OptionalDouble): OptionalDouble =
+    fold(AbsentDouble(): OptionalDouble)(f)
+
+  def filter(p: Double => Boolean): OptionalDouble =
+    if (!exists(p)) AbsentDouble() else optional
+
+  override
+  def filterNot(p: Double => Boolean): OptionalDouble =
+    if (forall(p)) AbsentDouble() else optional
+
+  override
+  def toOption[B >: Double]: Option[B] =
+    PresentDouble.unapply(optional)
 }
