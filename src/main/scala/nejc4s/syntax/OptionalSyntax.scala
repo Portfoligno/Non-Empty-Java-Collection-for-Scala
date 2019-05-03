@@ -17,7 +17,7 @@ class PresentOps[A](private val present: Present[A]) extends AnyVal {
 
 
 private[syntax]
-trait BaseOptionalOps[F[_], A] extends Any {
+trait BaseOptionalOps[F[_], A, A0] extends Any {
   protected
   def optional: F[A]
 
@@ -34,7 +34,7 @@ trait BaseOptionalOps[F[_], A] extends Any {
 
   def orElse_[B >: A](default: => B): B
 
-  def transform[B](f: A => B): F[B]
+  def transform[B <: A0](f: A => B): F[B]
 
 
   protected
@@ -44,9 +44,9 @@ trait BaseOptionalOps[F[_], A] extends Any {
     if (!isPresent) ifAbsent else f(get)
 
 
-  def flatTransform[B](f: A => F[B]): F[B]
+  def flatTransform[B <: A0](f: A => F[B]): F[B]
 
-  def flatten[B](implicit ev: A <:< F[B]): F[B] =
+  def flatten[B <: A0](implicit ev: A <:< F[B]): F[B] =
     flatTransform(ev)
 
   def filterNot(p: A => Boolean): F[A]
@@ -62,13 +62,13 @@ trait BaseOptionalOps[F[_], A] extends Any {
 
 
   protected
-  def fromOption[B](option: Option[B]): F[B]
+  def fromOption[B <: A0](option: Option[B]): F[B]
 
-  def collect[B](pf: PartialFunction[A, B]): F[B] =
+  def collect[B <: A0](pf: PartialFunction[A, B]): F[B] =
     flatTransform(pf.lift.andThen(fromOption))
 
 
-  def orElseWith[B >: A](alternative: => F[B]): F[B] =
+  def orElseWith[B >: A <: A0](alternative: => F[B]): F[B] =
     if (!isPresent) alternative else covary
 
   def toOption[B >: A]: Option[B]
@@ -79,7 +79,7 @@ final class OptionalOps[A](
   protected
   override
   val optional: Optional[A]
-) extends AnyVal with BaseOptionalOps[Optional, A] {
+) extends AnyVal with BaseOptionalOps[Optional, A, Any] {
   protected
   override
   def isPresent: Boolean =
