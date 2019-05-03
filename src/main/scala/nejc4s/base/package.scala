@@ -1,11 +1,13 @@
 package nejc4s
 
-import java.util.{OptionalDouble, OptionalInt, OptionalLong}
 import java.{lang, util}
 
 package object base {
   type AutoCloseable = lang.AutoCloseable
   type Optional[A] = util.Optional[A]
+  type OptionalDouble = util.OptionalDouble
+  type OptionalInt = util.OptionalInt
+  type OptionalLong = util.OptionalLong
   type Spliterator[A] = util.Spliterator[A]
   type JavaBaseStream[A, S <: JavaBaseStream[A, S]] = util.stream.BaseStream[A, S]
   type JavaCollection[A] = util.Collection[A]
