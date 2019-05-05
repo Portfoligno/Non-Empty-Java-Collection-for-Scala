@@ -8,9 +8,7 @@ project.the<SourceSetContainer>().apply {
   }
   getByName("test") {
     withConvention(ScalaSourceSet::class) {
-      scala {
-        setSrcDirs(listOf("../nejc4s/src/test/scala"))
-      }
+      scala.srcDir("../nejc4s/src/test/scala")
     }
   }
 }
