@@ -5,5 +5,5 @@ plugins {
 }
 
 apply {
-  from("../core.gradle.kts")
+  from("../nejc4s/shared.gradle.kts")
 }

@@ -2,14 +2,14 @@
 project.the<SourceSetContainer>().apply {
   getByName("main") {
     withConvention(ScalaSourceSet::class) {
-      scala.srcDir("../src/main/scala")
+      scala.srcDir("../nejc4s/src/main/scala")
     }
-    java.srcDir("../src/main/java")
+    java.srcDir("../nejc4s/src/main/java")
   }
   getByName("test") {
     withConvention(ScalaSourceSet::class) {
       scala {
-        setSrcDirs(listOf("../src/test/scala"))
+        setSrcDirs(listOf("../nejc4s/src/test/scala"))
       }
     }
   }
