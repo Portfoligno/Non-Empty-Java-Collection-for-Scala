@@ -14,25 +14,46 @@ project.the<SourceSetContainer>().apply {
 }
 val scalaCompilerPlugin: Configuration = configurations.create("scalaCompilerPlugin")
 
-val scalaVersion: String by project
+val scalaVersion: String by lazy {
+  val scalaVersion: String? by project
+  scalaVersion ?: scalaMinorVersion
+}
 val scalaMinorVersion = project.name.substringAfterLast('_')
+
+val useMacroParadise: Boolean by lazy {
+  val useMacroParadise: String? by project
+  useMacroParadise?.toBoolean() == true
+}
+
+val scalaTestVersion: String by lazy {
+  val scalaTestVersion: String? by project
+  scalaTestVersion ?: "3.0.7"
+}
 
 repositories {
   jcenter()
 }
 dependencies {
-  scalaCompilerPlugin("org.scalamacros:paradise_$scalaVersion:2.1.1")
-  "api"("org.scala-lang:scala-library:$scalaVersion")
+  if (useMacroParadise) {
+    scalaCompilerPlugin("org.scalamacros", "paradise_$scalaVersion", "2.1.1")
+  }
+  "api"("org.scala-lang", "scala-library", scalaVersion)
 
-  "testImplementation"("junit:junit:4.12")
-  "testImplementation"("org.scalatest:scalatest_$scalaMinorVersion:3.0.5-M1")
-  "testCompileOnly"("com.chuusai:shapeless_$scalaMinorVersion:2.3.3")
+  "testImplementation"("junit", "junit", "4.12")
+  "testImplementation"("org.scalatest", "scalatest_$scalaMinorVersion", scalaTestVersion)
+  "testCompileOnly"("com.chuusai", "shapeless_$scalaMinorVersion", "2.3.3")
 }
 
+var BaseScalaCompileOptions.parameters: List<String>
+  get() = additionalParameters ?: listOf()
+  set(x) { additionalParameters = x }
+
 tasks.withType<ScalaCompile> {
-  scalaCompileOptions.additionalParameters = listOf(
-          "-Xplugin:" + scalaCompilerPlugin.asPath,
-          "-Ypartial-unification",
-          "-language:higherKinds",
-          "-language:implicitConversions")
+  if (!useMacroParadise) {
+    scalaCompileOptions.parameters += "-Ymacro-annotations"
+  }
+  scalaCompileOptions.parameters += listOf(
+      "-Xplugin:" + scalaCompilerPlugin.asPath,
+      "-language:higherKinds",
+      "-language:implicitConversions")
 }

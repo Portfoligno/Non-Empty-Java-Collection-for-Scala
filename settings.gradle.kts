@@ -1,4 +1,7 @@
-include(
-    "nejc4s_2.12",
-    "nejc4s_2.13.0-M3"
+sequenceOf(
+    "2.12",
+    "2.13.0-RC1"
 )
+    .forEach {
+      include("nejc4s_$it")
+    }
