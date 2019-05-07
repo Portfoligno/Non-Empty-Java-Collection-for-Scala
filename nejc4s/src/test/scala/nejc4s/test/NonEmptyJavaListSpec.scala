@@ -1,9 +1,9 @@
-package nejc4s.test
+package nejc4s
+package test
 
-import nejc4s.NonEmptyJavaList
 import org.junit.runner.RunWith
 import org.scalatest.FreeSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
 class NonEmptyJavaListSpec extends FreeSpec {
@@ -13,7 +13,7 @@ class NonEmptyJavaListSpec extends FreeSpec {
     }
 
     "`unapplySeq` should work" in {
-      import scala.collection.JavaConverters._
+      import syntax.seqView._
 
       NonEmptyJavaList.unapplySeq((0 until 10).asJava)
 

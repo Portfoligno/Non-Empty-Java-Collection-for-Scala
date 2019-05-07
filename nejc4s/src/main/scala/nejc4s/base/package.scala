@@ -9,7 +9,7 @@ package object base {
   type OptionalInt = util.OptionalInt
   type OptionalLong = util.OptionalLong
   type Spliterator[A] = util.Spliterator[A]
-  type JavaBaseStream[A, S <: JavaBaseStream[A, S]] = util.stream.BaseStream[A, S]
+  type JavaBaseStream[A, S <: util.stream.BaseStream[A, S]] = util.stream.BaseStream[A, S]
   type JavaCollection[A] = util.Collection[A]
   type JavaDoubleStream = util.stream.DoubleStream
   type JavaIntStream = util.stream.IntStream

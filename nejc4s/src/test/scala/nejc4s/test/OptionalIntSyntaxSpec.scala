@@ -3,7 +3,7 @@ package nejc4s.test
 import nejc4s.base.{AbsentInt, OptionalInt, PresentInt}
 import org.junit.runner.RunWith
 import org.scalatest.FreeSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 
 object OptionalIntSyntaxSpec {
   val present: PresentInt = PresentInt(1)

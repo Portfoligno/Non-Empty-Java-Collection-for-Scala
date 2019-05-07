@@ -3,7 +3,7 @@ package nejc4s.test
 import nejc4s.base.{AbsentLong, OptionalLong, PresentLong}
 import org.junit.runner.RunWith
 import org.scalatest.FreeSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 
 object OptionalLongSyntaxSpec {
   val present: PresentLong = PresentLong(1)

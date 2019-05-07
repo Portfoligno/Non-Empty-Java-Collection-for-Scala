@@ -5,7 +5,7 @@ import java.util.function.{Consumer, DoubleConsumer, IntConsumer, LongConsumer}
 import java.{lang, util}
 
 object Spliterator {
-  type OfPrimitive[A, C, S <: OfPrimitive[A, C, S]] = util.Spliterator.OfPrimitive[A, C, S]
+  type OfPrimitive[A, C, S <: util.Spliterator.OfPrimitive[A, C, S]] = util.Spliterator.OfPrimitive[A, C, S]
   type OfInt = util.Spliterator.OfInt
   type OfLong = util.Spliterator.OfLong
   type OfDouble = util.Spliterator.OfDouble

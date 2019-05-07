@@ -3,7 +3,7 @@ package nejc4s.test
 import nejc4s.base.{Absent, Optional, Present, True}
 import org.junit.runner.RunWith
 import org.scalatest.FreeSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 import shapeless.test.illTyped
 
 object OptionalSyntaxSpec {

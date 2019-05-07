@@ -54,6 +54,7 @@ tasks.withType<ScalaCompile> {
   }
   scalaCompileOptions.parameters += listOf(
       "-Xplugin:" + scalaCompilerPlugin.asPath,
+      "-Xfatal-warnings",
       "-language:higherKinds",
       "-language:implicitConversions")
 }
