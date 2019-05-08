@@ -5,6 +5,9 @@ import nejc4s.base.{OptionalDouble, OptionalInt, OptionalLong}
 package object syntax {
   object optional extends OptionalSyntax
 
+  private[nejc4s]
+  object seqView extends SeqViewSyntax
+
 
   private[syntax]
   type OptionalInt_[X] = OptionalInt
