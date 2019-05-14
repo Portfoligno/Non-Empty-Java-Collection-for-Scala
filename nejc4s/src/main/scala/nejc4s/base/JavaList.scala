@@ -2,7 +2,7 @@ package nejc4s
 package base
 
 object JavaList {
-  trait Refined[A] extends RefinedJavaListBase[A] with JavaCollection.Refined[A] {
+  trait Refined[A] extends JavaList[A] with JavaCollection.Refined[A] {
     //override def get(index: Int): A
     override def indexOf(o: Any): NaturalIntX
     override def lastIndexOf(o: Any): NaturalIntX
@@ -10,7 +10,7 @@ object JavaList {
     override def listIterator(index: Int): JavaListIterator.Refined[A]
     override def subList(fromIndex: Int, toIndex: Int): JavaList.Refined[A]
 
-    //override def spliterator: Spliterator.Refined[A] = new Spliterator.UnsafeWrapper(super.spliterator)
+    override def spliterator: Spliterator.Refined[A] = new Spliterator.UnsafeWrapper(super.spliterator)
   }
 
   trait UnsafeProxy[A] extends JavaCollection.UnsafeProxy[A] with Refined[A] {
@@ -38,7 +38,7 @@ object JavaList {
 
   class UnsafeWrapper[A](
     override protected val delegate: JavaList[A]
-  ) extends UnsafeProxy[A] with RefinedJavaListBase[A] with JavaCollection[A]
+  ) extends UnsafeProxy[A] with JavaList[A] with JavaCollection[A]
 
 
   import syntax.seqView._

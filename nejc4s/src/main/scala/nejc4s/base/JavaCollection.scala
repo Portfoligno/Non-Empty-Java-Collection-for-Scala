@@ -3,7 +3,7 @@ package nejc4s.base
 import java.util
 
 object JavaCollection {
-  trait Refined[A] extends RefinedJavaCollectionBase[A] with JavaIterable.Refined[A] {
+  trait Refined[A] extends JavaCollection[A] with JavaIterable.Refined[A] {
     override def size: NaturalInt
     //override def isEmpty: Boolean
     //override def contains(o: Any): Boolean
@@ -11,7 +11,7 @@ object JavaCollection {
     //override def toArray[T](a: Array[T]): Array[T]
     //override def containsAll(c: JavaCollection[_]): Boolean
 
-    //override def spliterator: Spliterator.Refined[A] = new Spliterator.UnsafeWrapper(super.spliterator)
+    override def spliterator: Spliterator.Refined[A] = new Spliterator.UnsafeWrapper(super.spliterator)
     override def stream: JavaStream.Refined[A] = new JavaStream.UnsafeWrapper(super.stream)
     override def parallelStream: JavaStream.Refined[A] = new JavaStream.UnsafeWrapper(super.parallelStream)
   }
