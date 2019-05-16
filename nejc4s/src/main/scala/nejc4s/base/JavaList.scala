@@ -10,7 +10,7 @@ object JavaList {
     override def listIterator(index: Int): JavaListIterator.Refined[A]
     override def subList(fromIndex: Int, toIndex: Int): JavaList.Refined[A]
 
-    override def spliterator: Spliterator.Refined[A] = new Spliterator.UnsafeWrapper(super.spliterator)
+    override def spliterator: Spliterator.Refined[A] = new Spliterator.UnsafeWrapper(super[List].spliterator)
   }
 
   trait UnsafeProxy[A] extends JavaCollection.UnsafeProxy[A] with Refined[A] {
@@ -38,7 +38,7 @@ object JavaList {
 
   class UnsafeWrapper[A](
     override protected val delegate: JavaList[A]
-  ) extends UnsafeProxy[A] with JavaList[A] with JavaCollection[A]
+  ) extends UnsafeProxy[A] with JavaCollection[A]
 
 
   import syntax.seqView._

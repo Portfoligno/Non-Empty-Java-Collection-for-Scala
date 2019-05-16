@@ -18,7 +18,7 @@ object NonEmptyJavaList {
 
   class UnsafeWrapper[A](
     override protected val delegate: JavaList[A]
-  ) extends UnsafeProxy[A] with JavaList[A] with JavaCollection[A]
+  ) extends UnsafeProxy[A] with JavaCollection[A]
 
 
   import syntax.seqView._
