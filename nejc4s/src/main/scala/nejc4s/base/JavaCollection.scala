@@ -12,8 +12,8 @@ object JavaCollection {
     //override def containsAll(c: JavaCollection[_]): Boolean
 
     override def spliterator: Spliterator.Refined[A] = new Spliterator.UnsafeWrapper(super[Collection].spliterator)
-    override def stream: JavaStream.Refined[A] = new JavaStream.UnsafeWrapper(super.stream)
-    override def parallelStream: JavaStream.Refined[A] = new JavaStream.UnsafeWrapper(super.parallelStream)
+    override def stream: JavaStream.Refined[A] = new JavaStream.UnsafeWrapper(super[Collection].stream)
+    override def parallelStream: JavaStream.Refined[A] = new JavaStream.UnsafeWrapper(super[Collection].parallelStream)
   }
 
   trait UnsafeProxy[A] extends util.AbstractCollection[A] with JavaIterable.Proxy[A] with Refined[A] {

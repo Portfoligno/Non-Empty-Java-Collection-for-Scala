@@ -18,7 +18,7 @@ object Spliterator {
     //override def characteristics: Int
 
     //override def forEachRemaining(action: Consumer[_ >: A]): Unit = super.forEachRemaining(action)
-    override def getExactSizeIfKnown: NaturalLongX = NaturalLongX.unsafeFromLong(super.getExactSizeIfKnown)
+    override def getExactSizeIfKnown: NaturalLongX = NaturalLongX.unsafeFromLong(super[Spliterator].getExactSizeIfKnown)
     //override def hasCharacteristics(characteristics: Int): Boolean = super.hasCharacteristics(characteristics)
     //override def getComparator: Comparator[_ >: A] = super.getComparator
   }
@@ -40,7 +40,7 @@ object Spliterator {
 
   class UnsafeWrapper[A](
     override protected val delegate: Spliterator[A]
-  ) extends UnsafeProxy[A] with Spliterator[A]
+  ) extends UnsafeProxy[A]
 
 
 
@@ -66,7 +66,7 @@ object Spliterator {
       override def forEachRemaining(action: Consumer[_ >: Integer]): Unit = delegate.forEachRemaining(action)
     }
 
-    class UnsafeWrapper(override protected val delegate: OfInt) extends UnsafeProxy with Spliterator[Integer]
+    class UnsafeWrapper(override protected val delegate: OfInt) extends UnsafeProxy
   }
 
 
@@ -93,7 +93,7 @@ object Spliterator {
       override def forEachRemaining(action: Consumer[_ >: lang.Long]): Unit = delegate.forEachRemaining(action)
     }
 
-    class UnsafeWrapper(override protected val delegate: OfLong) extends UnsafeProxy with Spliterator[lang.Long]
+    class UnsafeWrapper(override protected val delegate: OfLong) extends UnsafeProxy
   }
 
 
@@ -122,6 +122,6 @@ object Spliterator {
 
     class UnsafeWrapper(
       override protected val delegate: OfDouble
-    ) extends UnsafeProxy with Spliterator[lang.Double]
+    ) extends UnsafeProxy
   }
 }

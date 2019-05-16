@@ -9,7 +9,7 @@ object JavaIterable {
     //override def iterator: JavaIterator[A]
 
     //override def forEach(action: Consumer[_ >: A]): Unit = super.forEach(action)
-    override def spliterator: Spliterator.Refined[A] = new Spliterator.UnsafeWrapper(super.spliterator)
+    override def spliterator: Spliterator.Refined[A] = new Spliterator.UnsafeWrapper(super[Iterable].spliterator)
   }
 
   trait Proxy[A] extends base.Proxy with Refined[A] {

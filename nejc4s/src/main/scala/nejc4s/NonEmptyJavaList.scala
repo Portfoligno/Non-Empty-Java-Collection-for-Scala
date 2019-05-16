@@ -1,6 +1,6 @@
 package nejc4s
 
-import nejc4s.base.{JavaCollection, JavaList, PositiveIntX}
+import nejc4s.base.{JavaList, PositiveIntX}
 
 trait NonEmptyJavaList[A] extends JavaList.Refined[A] with NonEmptyJavaCollection[A] {
   override def indexOf(o: Any): PositiveIntX
@@ -18,7 +18,7 @@ object NonEmptyJavaList {
 
   class UnsafeWrapper[A](
     override protected val delegate: JavaList[A]
-  ) extends UnsafeProxy[A] with JavaCollection[A]
+  ) extends UnsafeProxy[A]
 
 
   import syntax.seqView._
