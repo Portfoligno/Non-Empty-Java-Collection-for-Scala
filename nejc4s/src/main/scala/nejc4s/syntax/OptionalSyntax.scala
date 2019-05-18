@@ -103,7 +103,8 @@ trait BaseOptionalOps[F[_], A, A0] extends Any {
   def orElseWith[B >: A <: A0](alternative: => F[B]): F[B] =
     if (isAbsent) alternative else covary
 
-  def toOption[B >: A]: Option[B]
+  def toOption[B >: A]: Option[B] =
+    fold(None: Option[B])(Some(_))
 }
 
 
@@ -146,10 +147,6 @@ final class OptionalOps[A](
   override
   def filterNot(p: A => Boolean): Optional[A] =
     optional.filter(!p(_))
-
-  override
-  def toOption[B >: A]: Option[B] =
-    Present.unapply(optional)
 }
 
 
@@ -188,10 +185,6 @@ final class OptionalIntOps(
   override
   def filterNot(p: Int => Boolean): OptionalInt =
     if (forall(p)) AbsentInt() else optional
-
-  override
-  def toOption[B >: Int]: Option[B] =
-    PresentInt.unapply(optional)
 }
 
 final class OptionalLongOps(
@@ -229,10 +222,6 @@ final class OptionalLongOps(
   override
   def filterNot(p: Long => Boolean): OptionalLong =
     if (forall(p)) AbsentLong() else optional
-
-  override
-  def toOption[B >: Long]: Option[B] =
-    PresentLong.unapply(optional)
 }
 
 final class OptionalDoubleOps(
@@ -270,8 +259,4 @@ final class OptionalDoubleOps(
   override
   def filterNot(p: Double => Boolean): OptionalDouble =
     if (forall(p)) AbsentDouble() else optional
-
-  override
-  def toOption[B >: Double]: Option[B] =
-    PresentDouble.unapply(optional)
 }
