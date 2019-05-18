@@ -20,6 +20,11 @@ val scalaVersion: String by lazy {
 }
 val scalaMinorVersion = project.name.substringAfterLast('_')
 
+val dependencyScalaVersion: String by lazy {
+  val dependencyScalaVersion: String? by project
+  dependencyScalaVersion ?: scalaMinorVersion
+}
+
 val useMacroParadise: Boolean by lazy {
   val useMacroParadise: String? by project
   useMacroParadise?.toBoolean() == true
@@ -40,8 +45,8 @@ dependencies {
   "api"("org.scala-lang", "scala-library", scalaVersion)
 
   "testImplementation"("junit", "junit", "4.12")
-  "testImplementation"("org.scalatest", "scalatest_$scalaMinorVersion", scalaTestVersion)
-  "testCompileOnly"("com.chuusai", "shapeless_$scalaMinorVersion", "2.3.3")
+  "testImplementation"("org.scalatest", "scalatest_$dependencyScalaVersion", scalaTestVersion)
+  "testCompileOnly"("com.chuusai", "shapeless_$dependencyScalaVersion", "2.3.3")
 }
 
 var BaseScalaCompileOptions.parameters: List<String>
