@@ -16,12 +16,12 @@ class OptionalDoubleSyntaxSpec extends FreeSpec {
   import OptionalDoubleSyntaxSpec._
   import nejc4s.syntax.optional._
 
-  "Present" - {
+  "PresentDouble" - {
     "`value` should work" in {
       present.value.toByte
     }
   }
-  "Optional" - {
+  "OptionalDouble" - {
     "`isAbsent` should work" in {
       optional.isAbsent
     }

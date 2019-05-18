@@ -16,12 +16,12 @@ class OptionalLongSyntaxSpec extends FreeSpec {
   import OptionalLongSyntaxSpec._
   import nejc4s.syntax.optional._
 
-  "Present" - {
+  "PresentLong" - {
     "`value` should work" in {
       present.value.toByte
     }
   }
-  "Optional" - {
+  "OptionalLong" - {
     "`isAbsent` should work" in {
       optional.isAbsent
     }

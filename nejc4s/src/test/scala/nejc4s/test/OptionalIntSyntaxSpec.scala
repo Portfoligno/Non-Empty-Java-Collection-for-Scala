@@ -16,12 +16,12 @@ class OptionalIntSyntaxSpec extends FreeSpec {
   import OptionalIntSyntaxSpec._
   import nejc4s.syntax.optional._
 
-  "Present" - {
+  "PresentInt" - {
     "`value` should work" in {
       present.value.toByte
     }
   }
-  "Optional" - {
+  "OptionalInt" - {
     "`isAbsent` should work" in {
       optional.isAbsent
     }
