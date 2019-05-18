@@ -20,6 +20,12 @@ class OptionalIntSyntaxSpec extends FreeSpec {
     "`value` should work" in {
       present.value.toByte
     }
+    "`unapply` should work" in {
+      optional match {
+        case PresentInt(a) => println(a)
+        case _ =>
+      }
+    }
   }
   "OptionalInt" - {
     "`isAbsent` should work" in {

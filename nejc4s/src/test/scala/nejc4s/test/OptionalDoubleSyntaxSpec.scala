@@ -20,6 +20,12 @@ class OptionalDoubleSyntaxSpec extends FreeSpec {
     "`value` should work" in {
       present.value.toByte
     }
+    "`unapply` should work" in {
+      optional match {
+        case PresentDouble(a) => println(a)
+        case _ =>
+      }
+    }
   }
   "OptionalDouble" - {
     "`isAbsent` should work" in {

@@ -20,6 +20,12 @@ class OptionalLongSyntaxSpec extends FreeSpec {
     "`value` should work" in {
       present.value.toByte
     }
+    "`unapply` should work" in {
+      optional match {
+        case PresentLong(a) => println(a)
+        case _ =>
+      }
+    }
   }
   "OptionalLong" - {
     "`isAbsent` should work" in {

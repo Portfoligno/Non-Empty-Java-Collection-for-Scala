@@ -29,6 +29,12 @@ class OptionalSyntaxSpec extends FreeSpec {
     "`value` should work" in {
       present.value.dummy
     }
+    "`unapply` should work" in {
+      optional match {
+        case Present(a) => println(a)
+        case _ =>
+      }
+    }
   }
   "Optional" - {
     "`covary` should be adapting type parameter" in {
