@@ -41,6 +41,18 @@ class NonEmptyJavaListSpec extends FreeSpec {
       (0 until 3).asJava match {
         case NonEmptyJavaList(0, 1, 2) =>
       }
+      (0 until 3).asJava match {
+        case NonEmptyJavaList(0, 1, 2, xs @ _*) =>
+          assert(xs === Seq())
+      }
+      (0 until 3).asJava match {
+        case NonEmptyJavaList(0, 1, xs @ _*) =>
+          assert(xs === Seq(2))
+      }
+      (0 until 3).asJava match {
+        case NonEmptyJavaList(0, xs @ _*) =>
+          assert(xs === Seq(1, 2))
+      }
     }
   }
 }
